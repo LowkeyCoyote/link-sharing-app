@@ -1,12 +1,19 @@
 import { useForm } from 'react-hook-form';
 import { SignInFormType } from 'src/types/types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import logoDevlinksLarge from '@assets/shared/logo/logo-devlinks-large.svg';
 import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@redux/store';
+import { loginUser } from '@redux/authSlice';
 
 const SignIn = () => {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch<AppDispatch>()
+
   const {
     register,
     handleSubmit,
@@ -16,7 +23,13 @@ const SignIn = () => {
     reValidateMode: 'onChange'
   });
 
-  const onSubmit = () => console.log(errors);
+  const onSubmit = (data : SignInFormType) => {
+    const {email, password} = data
+      dispatch(loginUser({email, password})).then((action) => {
+        localStorage.setItem("accessToken", action.payload.token);
+        navigate('/home')
+      })
+  };
 
   return (
     <div className='w-[476px] sm:w-[311px]'>

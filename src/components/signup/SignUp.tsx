@@ -1,12 +1,18 @@
 import { useForm } from 'react-hook-form';
 import { SignUpFormType } from 'src/types/types';
 import FormField from '@components/shared/ui/FormField';
-
+import { useNavigate } from 'react-router-dom';
 import logoDevlinksLarge from '@assets/shared/logo/logo-devlinks-large.svg';
 import Button from '@components/shared/ui/Button';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '@redux/authSlice';
+import { AppDispatch } from '@redux/store';
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
   const {
     register,
     handleSubmit,
@@ -16,7 +22,13 @@ const SignUp = () => {
     reValidateMode: 'onChange',
   });
 
-  const onSubmit = () => console.log(errors);
+  const onSubmit = (data: SignUpFormType) => {
+    const { email, password, validatePassword } = data;
+    dispatch(registerUser({ email, password, validatePassword })).then((action) => {
+      localStorage.setItem('accessToken', action.payload.token);
+      navigate('/test');
+    });
+  };
 
   return (
     <div className="w-[476px] sm:w-[311px]">
@@ -37,7 +49,6 @@ const SignUp = () => {
             error={errors.email && 'wrong format'}
             validationPattern={/^\S+@\S+\.\S+$/}
           />
-
           <FormField
             name="password"
             label="Password"
