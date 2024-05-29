@@ -1,12 +1,11 @@
 import Navbar from "@components/shared/layout/Navbar"
 
-
-const HomePage = () => {
+const ProfilePage = () => {
   return (
     <div>
-      <Navbar />
+        <Navbar />
     </div>
   )
 }
 
-export default HomePage
+export default ProfilePage
