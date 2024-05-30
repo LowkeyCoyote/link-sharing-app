@@ -8,3 +8,10 @@ export type SignUpFormType = {
     password : string;
     validatePassword : string;
 }
+
+export type UpdateFormType = {
+    image ?: File | undefined , 
+    firstname : string,
+    lastname : string,
+    email ?: string,
+}

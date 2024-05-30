@@ -48,6 +48,8 @@ const SignUp = () => {
             icon={true}
             error={errors.email && 'wrong format'}
             validationPattern={/^\S+@\S+\.\S+$/}
+            labelVisible={true}
+
           />
           <FormField
             name="password"
@@ -60,6 +62,8 @@ const SignUp = () => {
             icon={true}
             error={errors.password && 'wrong format'}
             validationPattern={/.{8,}/}
+            labelVisible={true}
+
           />
 
           <FormField

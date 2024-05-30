@@ -37,7 +37,7 @@ const SignIn = () => {
       <div className="bg-white rounded-xl text-left p-10">
         <h1 className="pb-2">Login</h1>
         <p className="pb-10">Add your details below to get back into the app</p>
-        <form onChange={() => console.log(errors)} onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormField
             name="email"
             label="Email address"
@@ -49,6 +49,7 @@ const SignIn = () => {
             icon={true}
             error={errors.email && 'wrong format'}
             validationPattern={/^\S+@\S+\.\S+$/}
+            labelVisible={true}
           />
 
           <FormField
@@ -62,6 +63,8 @@ const SignIn = () => {
             icon={true}
             error={errors.password && 'wrong format'}
             validationPattern={/.{8,}/}
+            labelVisible={true}
+
           />
           <Button className="w-full" type="submit">
             Login
