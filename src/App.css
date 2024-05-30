@@ -29,6 +29,20 @@ input:focus{
   filter: brightness(0) saturate(100%) invert(23%) sepia(70%) saturate(3984%) hue-rotate(246deg) brightness(99%) contrast(105%);
 }
 
+.filter-white{
+  filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(128deg) brightness(103%) contrast(107%);
+}
+
 .filter-purple-selected{
   filter: brightness(0) saturate(100%) invert(23%) sepia(70%) saturate(3984%) hue-rotate(246deg) brightness(99%) contrast(105%);
+}
+
+.overlay-dark-profile::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }

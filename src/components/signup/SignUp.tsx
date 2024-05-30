@@ -26,7 +26,7 @@ const SignUp = () => {
     const { email, password, validatePassword } = data;
     dispatch(registerUser({ email, password, validatePassword })).then((action) => {
       localStorage.setItem('accessToken', action.payload.token);
-      navigate('/test');
+      navigate('/signin');
     });
   };
 

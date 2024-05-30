@@ -64,7 +64,6 @@ const SignIn = () => {
             error={errors.password && 'wrong format'}
             validationPattern={/.{8,}/}
             labelVisible={true}
-
           />
           <Button className="w-full" type="submit">
             Login

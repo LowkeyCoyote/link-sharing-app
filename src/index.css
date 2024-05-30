@@ -2,22 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@layer base{
+@layer base {
   h1 {
-    @apply text-h1-desktop font-bold leading-[150%]
+    @apply text-h1-desktop font-bold leading-[150%];
   }
 
-  p{
-    @apply  text-p-desktop text-grey
+  p {
+    @apply text-p-desktop text-grey;
   }
 
-
-  @media screen and (max-width:640px) {
-    h1{
-      @apply text-h1-mobile
+  @media screen and (max-width: 640px) {
+    h1 {
+      @apply text-h1-mobile;
     }
   }
 }
-
-

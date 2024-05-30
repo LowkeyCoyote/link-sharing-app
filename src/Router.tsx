@@ -4,10 +4,15 @@ import SignUpPage from '@pages/SignUpPage';
 import HomePage from '@pages/HomePage';
 import PreviewPage from '@pages/PreviewPage';
 import ProfilePage from '@pages/ProfilePage';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getCurrentUser } from '@redux/authSlice';
+import { AppDispatch } from '@redux/store';
+
+
 
 const ProtectedRoutes = () => {
   const localStorageToken = localStorage.getItem('accessToken');
-  console.log(localStorageToken === null);
   return localStorageToken === null || localStorageToken === 'undefined' ? (
     <Navigate to="/signin" replace />
   ) : (
@@ -48,5 +53,11 @@ const router = createBrowserRouter([
 ]);
 
 export default function Router() {
+
+    const dispatch = useDispatch<AppDispatch>()
+    useEffect(() => {
+        dispatch(getCurrentUser())
+    },[dispatch])
+    
   return <RouterProvider router={router} />;
 }

@@ -11,9 +11,8 @@ interface FormFieldProps extends HTMLAttributes<HTMLAllCollection> {
   error?: string;
   register: any;
   validationPattern?: RegExp;
-  maxLength?: number;
-  required ?: boolean
-  
+  maxLength?: number;  
+  required ?: boolean;
 }
 
 const FormField = ({
@@ -28,7 +27,7 @@ const FormField = ({
   register,
   validationPattern,
   maxLength,
-  required = true
+  required = true,
 }: FormFieldProps) => {
   return (
     <div className="flex flex-col">
@@ -36,22 +35,20 @@ const FormField = ({
         <label className={`${error ? `text-red` : `text-grey`} pb-1 text-p-small`} htmlFor={name}>
         {label}
       </label>
-
       ): (
         ''
       )}
-
       <input
         type={type}
         placeholder={placeholder}
         maxLength={maxLength}
         className={twMerge(
-          `${icon ? `bg-${icon} bg-no-repeat  pl-11 text-dark-grey  ${error ? `border-red` : ``}` : `px-4`}`,
+          `${icon ? `bg-${icon} bg-no-repeat  pl-11 text-dark-grey  ${error ? `outine-red` : ``}` : `px-4`}`,
           className
         )}
         id={name}
         {...register(name, {
-          required: {required},
+          required: required,
           maxLength: maxLength,
           pattern: validationPattern,
         })}

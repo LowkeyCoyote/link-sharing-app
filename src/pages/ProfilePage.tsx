@@ -6,10 +6,10 @@ const ProfilePage = () => {
     <section>
         <Navbar />
         <div className="flex px-6 gap-6">
-            <div className="bg-white h-screen w-[35%] rounded-xl">
+            <div className="bg-white h-screen w-[35%] rounded-xl md:hidden">
 
             </div>
-            <div className="bg-white h-screen w-[65%] rounded-xl">
+            <div className="bg-white h-screen w-[65%] rounded-xl md:w-full">
                 <FormUpdateProfile />
             </div>
         </div>
