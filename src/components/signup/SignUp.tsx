@@ -23,8 +23,8 @@ const SignUp = () => {
   });
 
   const onSubmit = (data: SignUpFormType) => {
-    const { email, password, validatePassword } = data;
-    dispatch(registerUser({ email, password, validatePassword })).then((action) => {
+    const { email, password } = data;
+    dispatch(registerUser({ email, password })).then((action) => {
       localStorage.setItem('accessToken', action.payload.token);
       navigate('/signin');
     });

@@ -6,6 +6,7 @@ import logoDevlinksLarge from '@assets/shared/logo/logo-devlinks-large.svg';
 import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
 import { useDispatch } from 'react-redux';
+
 import { AppDispatch } from '@redux/store';
 import { loginUser } from '@redux/authSlice';
 
@@ -26,7 +27,7 @@ const SignIn = () => {
   const onSubmit = (data : SignInFormType) => {
     const {email, password} = data
       dispatch(loginUser({email, password})).then((action) => {
-        localStorage.setItem("accessToken", action.payload.token);
+        localStorage.setItem("token", action.payload.token);
         navigate('/home')
       })
   };

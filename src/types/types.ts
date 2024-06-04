@@ -6,7 +6,7 @@ export type SignInFormType = {
 export type SignUpFormType = {
     email : string;
     password : string;
-    validatePassword : string;
+    validatePassword ?: string;
 }
 
 export type UpdateFormType = {
@@ -15,3 +15,4 @@ export type UpdateFormType = {
     lastname : string,
     email ?: string,
 }
+

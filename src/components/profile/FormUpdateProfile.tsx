@@ -1,10 +1,10 @@
-import { useRef, useState, ChangeEvent } from 'react';
+import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
 import { updateCurrentUser } from '@redux/authSlice';
 import { AppDispatch } from '@redux/store';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { UpdateFormType } from 'src/types/types';
 import iconUploadImage from '@assets/shared/icon/icon-upload-image.svg';
@@ -12,17 +12,43 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
 const FormUpdateProfile = () => {
+
+  const userInfo = useSelector((state : any) => state.authSlice.currentUser)
+  const dispatch = useDispatch<AppDispatch>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<UpdateFormType>({
     mode: 'onSubmit',
+
+    defaultValues: {
+      firstname: userInfo?.firstname || '',
+      lastname: userInfo?.lastname || '',
+      email: userInfo?.email || '',
+      image: undefined,
+    },
   });
 
-  const dispatch = useDispatch<AppDispatch>();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (userInfo) {
+      reset({
+        firstname: userInfo.firstname,
+        lastname: userInfo.lastname,
+        email: userInfo.email,
+        image: undefined,
+      });
+      setIsLoading(false);
+    }
+  }, [userInfo, reset]);
+
+
 
   const handleDivClick = () => {
     if (fileInputRef.current) {
@@ -60,6 +86,10 @@ const FormUpdateProfile = () => {
       });
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>

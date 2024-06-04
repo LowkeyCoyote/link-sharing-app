@@ -11,8 +11,11 @@ import { AppDispatch } from '@redux/store';
 
 
 
+
+
+
 const ProtectedRoutes = () => {
-  const localStorageToken = localStorage.getItem('accessToken');
+  const localStorageToken = localStorage.getItem('token');
   return localStorageToken === null || localStorageToken === 'undefined' ? (
     <Navigate to="/signin" replace />
   ) : (
@@ -53,7 +56,6 @@ const router = createBrowserRouter([
 ]);
 
 export default function Router() {
-
     const dispatch = useDispatch<AppDispatch>()
     useEffect(() => {
         dispatch(getCurrentUser())

@@ -9,8 +9,9 @@ const initialState = {
 
 export const registerUser = createAsyncThunk('auth/register', async (userData: SignUpFormType, thunkAPI) => {
   try {
-    const response = await axios.post('https://api.realworld.io/api/users', {
-      user: userData,
+    const response = await axios.post('http://localhost:3000/api/users/signup', {
+      email: userData.email,
+      password: userData.password,
     });
     return response.data.user;
   } catch (err: any) {
@@ -20,10 +21,11 @@ export const registerUser = createAsyncThunk('auth/register', async (userData: S
 
 export const loginUser = createAsyncThunk('auth/login', async (userData: SignInFormType, thunkAPI) => {
   try {
-    const response = await axios.post('https://api.realworld.io/api/users/login', {
-      user: userData,
+    const response = await axios.post('http://localhost:3000/api/users/signin', {
+      email: userData.email,
+      password: userData.password,
     });
-    return response.data.user;
+    return response.data;
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err.response.data.errors);
   }
@@ -31,10 +33,10 @@ export const loginUser = createAsyncThunk('auth/login', async (userData: SignInF
 
 export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, thunkAPI) => {
   try {
-    const token = localStorage.getItem('accessToken') ?? '';
-    const response = await axios.get('https://api.realworld.io/api/user', {
+    const token = localStorage.getItem('token') ?? '';
+    const response = await axios.get(`http://localhost:3000/api/users`, {
       headers: {
-        Authorization: `Token ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data.user;
@@ -44,20 +46,24 @@ export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, 
 });
 
 export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (userData: UpdateFormType, thunkAPI) => {
-    try {
-      const token = localStorage.getItem('accessToken') ?? '';
-      const response = await axios.put('https://api.realworld.io/api/user', {
+  try {
+    const token = localStorage.getItem('accessToken') ?? '';
+    const response = await axios.put(
+      'https://api.realworld.io/api/users',
+      {
         user: userData,
-      }, {
+      },
+      {
         headers: {
           Authorization: `Token ${token}`,
         },
-      });
-      return response.data.user;
-    } catch (err: any) {
-      return thunkAPI.rejectWithValue(err.response.data);
-    }
-  });
+      }
+    );
+    return response.data.user;
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+});
 
 const authSlice = createSlice({
   name: 'auth',
@@ -81,7 +87,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.currentUser = action.payload;
+        state.currentUser = action.payload.user;
       })
       .addCase(loginUser.rejected, (state) => {
         state.isLoading = false;
