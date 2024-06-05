@@ -47,15 +47,15 @@ export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, 
 
 export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (userData: UpdateFormType, thunkAPI) => {
   try {
-    const token = localStorage.getItem('accessToken') ?? '';
+    const token = localStorage.getItem('token') ?? '';
     const response = await axios.put(
-      'https://api.realworld.io/api/users',
+      'http://localhost:3000/api/users',
       {
         user: userData,
       },
       {
         headers: {
-          Authorization: `Token ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );

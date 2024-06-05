@@ -12,8 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
 const FormUpdateProfile = () => {
-
-  const userInfo = useSelector((state : any) => state.authSlice.currentUser)
+  const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -35,7 +34,6 @@ const FormUpdateProfile = () => {
     },
   });
 
-
   useEffect(() => {
     if (userInfo) {
       reset({
@@ -47,8 +45,6 @@ const FormUpdateProfile = () => {
       setIsLoading(false);
     }
   }, [userInfo, reset]);
-
-
 
   const handleDivClick = () => {
     if (fileInputRef.current) {

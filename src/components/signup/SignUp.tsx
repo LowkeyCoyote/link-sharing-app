@@ -4,10 +4,13 @@ import FormField from '@components/shared/ui/FormField';
 import { useNavigate } from 'react-router-dom';
 import logoDevlinksLarge from '@assets/shared/logo/logo-devlinks-large.svg';
 import Button from '@components/shared/ui/Button';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '@redux/authSlice';
 import { AppDispatch } from '@redux/store';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -22,12 +25,27 @@ const SignUp = () => {
     reValidateMode: 'onChange',
   });
 
-  const onSubmit = (data: SignUpFormType) => {
-    const { email, password } = data;
-    dispatch(registerUser({ email, password })).then((action) => {
-      localStorage.setItem('accessToken', action.payload.token);
-      navigate('/signin');
-    });
+  const onSubmit = async (data: SignUpFormType) => {
+    const { email, password, validatePassword } = data;
+    if (password !== validatePassword) {
+      toast.error('Passwords do not match', {
+        position: 'bottom-right',
+      });
+      return;
+    }
+    try {
+      const action = await dispatch(registerUser({ email, password }));
+      unwrapResult(action);
+      toast.success('Your account has been created. Click here to sign in', {
+        position: 'bottom-right',
+        onClick: () => navigate('/signin'),
+        style: { cursor: 'pointer' },
+      });
+    } catch (error) {
+      toast.error('An error occurred during account creation', {
+        position: 'bottom-right',
+      });
+    }
   };
 
   return (
@@ -52,7 +70,7 @@ const SignUp = () => {
           />
           <FormField
             name="password"
-            label="Password"
+            label="Create password"
             type="password"
             placeholder="At least 8 characters"
             maxLength={40}
@@ -63,7 +81,6 @@ const SignUp = () => {
             validationPattern={/.{8,}/}
             labelVisible={true}
           />
-
           <FormField
             name="validatePassword"
             label="Confirm password"
@@ -75,10 +92,10 @@ const SignUp = () => {
             icon={true}
             error={errors.password && 'wrong format'}
             validationPattern={/.{8,}/}
+            labelVisible={true}
           />
           <Button className="w-full">Create new account</Button>
         </form>
-
         <p className="pt-6 text-center">
           Already have an account?{' '}
           <Link className="text-purple cursor-pointer" to={'/signin'}>
