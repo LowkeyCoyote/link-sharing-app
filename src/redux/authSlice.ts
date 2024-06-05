@@ -9,7 +9,7 @@ const initialState = {
 
 export const registerUser = createAsyncThunk('auth/register', async (userData: SignUpFormType, thunkAPI) => {
   try {
-    const response = await axios.post('https://link-sharing.joska-gyuricza.fr//api/users/signup', {
+    const response = await axios.post('https://link-sharing.joska-gyuricza.fr/api/users/signup', {
       email: userData.email,
       password: userData.password,
     });

@@ -1,13 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { SignInFormType } from 'src/types/types';
 import { Link, useNavigate } from 'react-router-dom';
-
 import logoDevlinksLarge from '@assets/shared/logo/logo-devlinks-large.svg';
 import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@redux/store';
 import { loginUser } from '@redux/authSlice';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
 
@@ -26,10 +27,12 @@ const SignIn = () => {
   const onSubmit = (data : SignInFormType) => {
     const {email, password} = data
       dispatch(loginUser({email, password})).then((action) => {
-        console.log(action)
         localStorage.setItem("token", action.payload.token);
         navigate('/home')
       })
+      .catch(() => toast.error('Invalid Credentials', {
+        position : 'bottom-right'
+      }))
   };
 
   return (

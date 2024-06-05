@@ -19,6 +19,7 @@ const FormUpdateProfile = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+
   const {
     register,
     handleSubmit,
@@ -81,16 +82,14 @@ const FormUpdateProfile = () => {
         formData.append('email', data.email);
       }
 
-
       if (selectedImage) formData.append('image', selectedImage);
-      for (var pair of formData.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
-    }
+     
       const actionResult = await dispatch(updateCurrentUser(formData));
       unwrapResult(actionResult);
       toast.success('Your profile has been modified', {
         position: 'bottom-right',
       });
+      window.location.reload()
     } catch (error) {
       toast.error('An error occurred while updating profile', {
         position: 'bottom-right',
