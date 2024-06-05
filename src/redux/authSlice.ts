@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SignInFormType, SignUpFormType, UpdateFormType } from 'src/types/types';
+import { SignInFormType, SignUpFormType } from 'src/types/types';
 import axios from 'axios';
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 
 export const registerUser = createAsyncThunk('auth/register', async (userData: SignUpFormType, thunkAPI) => {
   try {
-    const response = await axios.post('http://localhost:3000/api/users/signup', {
+    const response = await axios.post('https://link-sharing.joska-gyuricza.fr//api/users/signup', {
       email: userData.email,
       password: userData.password,
     });
@@ -21,7 +21,7 @@ export const registerUser = createAsyncThunk('auth/register', async (userData: S
 
 export const loginUser = createAsyncThunk('auth/login', async (userData: SignInFormType, thunkAPI) => {
   try {
-    const response = await axios.post('http://localhost:3000/api/users/signin', {
+    const response = await axios.post('https://link-sharing.joska-gyuricza.fr/api/users/signin', {
       email: userData.email,
       password: userData.password,
     });
@@ -34,7 +34,7 @@ export const loginUser = createAsyncThunk('auth/login', async (userData: SignInF
 export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, thunkAPI) => {
   try {
     const token = localStorage.getItem('token') ?? '';
-    const response = await axios.get(`http://localhost:3000/api/users`, {
+    const response = await axios.get(`https://link-sharing.joska-gyuricza.fr/api/users`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -45,18 +45,17 @@ export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, 
   }
 });
 
-export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (userData: UpdateFormType, thunkAPI) => {
+export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (userData: FormData, thunkAPI) => {
   try {
     const token = localStorage.getItem('token') ?? '';
     const response = await axios.put(
-      'http://localhost:3000/api/users',
-      {
-        user: userData,
-      },
+      'https://link-sharing.joska-gyuricza.fr/api/users', userData,
       {
         headers: {
+          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
+  
       }
     );
     return response.data.user;

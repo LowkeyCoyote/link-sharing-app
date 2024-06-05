@@ -15,7 +15,8 @@ const FormUpdateProfile = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const {
@@ -42,6 +43,7 @@ const FormUpdateProfile = () => {
         email: userInfo.email,
         image: undefined,
       });
+      setImagePreview(userInfo.url)
       setIsLoading(false);
     }
   }, [userInfo, reset]);
@@ -60,7 +62,8 @@ const FormUpdateProfile = () => {
       img.onload = function () {
         const image = this as HTMLImageElement;
         if (image.width <= 1024 && image.height <= 1024) {
-          setSelectedImage(imageUrl);
+          setSelectedImage(file);
+          setImagePreview(imageUrl);
         } else {
           toast.warning('Image width and height must be inferior to 1024 pixel');
         }
@@ -71,7 +74,19 @@ const FormUpdateProfile = () => {
 
   const onSubmit = async (data: UpdateFormType) => {
     try {
-      const actionResult = await dispatch(updateCurrentUser(data));
+      const formData = new FormData();
+      formData.append('firstname', data.firstname);
+      formData.append('lastname', data.lastname);
+      if (data.email) {
+        formData.append('email', data.email);
+      }
+
+
+      if (selectedImage) formData.append('image', selectedImage);
+      for (var pair of formData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]); 
+    }
+      const actionResult = await dispatch(updateCurrentUser(formData));
       unwrapResult(actionResult);
       toast.success('Your profile has been modified', {
         position: 'bottom-right',
@@ -103,7 +118,7 @@ const FormUpdateProfile = () => {
                 onClick={handleDivClick}
                 className={`h-[193px] w-[193px] bg-light-purple overflow-hidden rounded-xl cursor-pointer flex flex-col items-center justify-center bg-no-repeat bg-center bg-cover relative`}
                 style={{
-                  backgroundImage: selectedImage ? `url(${selectedImage})` : 'none',
+                  backgroundImage: imagePreview ? `url(${imagePreview})` : 'none',
                 }}
               >
                 <input
@@ -119,9 +134,9 @@ const FormUpdateProfile = () => {
                   onChange={handleImageChange}
                   required={false}
                 />
-                <img className={`${selectedImage ? `filter-white z-10` : ``}`} src={iconUploadImage} alt="upload" />
-                <p className={`text-purple font-semibold ${selectedImage ? `text-white z-10` : ``}`}>+ Upload Image</p>
-                {selectedImage && <div className="overlay-dark-profile"></div>}
+                <img className={`${imagePreview ? `filter-white z-10` : ``}`} src={iconUploadImage} alt="upload" />
+                <p className={`text-purple font-semibold ${imagePreview ? `text-white z-10` : ``}`}>+ Upload Image</p>
+                {imagePreview && <div className="overlay-dark-profile"></div>}
               </div>
               <p className="max-w-[200px] text-p-small">Image must be below 1024x1024px. Use PNG or JPG format.</p>
             </div>
