@@ -3,13 +3,13 @@ import Button from '@components/shared/ui/Button';
 import { LinksInformation } from 'src/types/types';
 import EmptyLinks from './EmptyLinks';
 import FormLink from './FormLink';
-import { socialInfosArray } from '@datas/dataSocials.ts';
+import { socialInfosArray } from '../../datas/dataSocials';
 
 
 const GestionLinks = () => {
 
   const [links, setLinks] = useState<LinksInformation[]>([]);
-  
+
   const addNewLink = () => {
      for (let i = 0; i < socialInfosArray.length; i++) {
       const socialPlatform = socialInfosArray[i].platform;
@@ -23,7 +23,18 @@ const GestionLinks = () => {
     }
   }
 
+  const removeLink = (indexToRemove: number) => {
+    const updatedLinks = links.filter((_, index) => index !== indexToRemove);
+    setLinks(updatedLinks);
+  };
 
+
+  const updateLink = (index: number, newLink: string) => {
+    const updatedLinks = links.map((link, i) => 
+      i === index ? { ...link, link: newLink } : link
+    );
+    setLinks(updatedLinks);
+  };
 
   return (
     <section>
@@ -37,7 +48,20 @@ const GestionLinks = () => {
       >
         + Add new link
       </Button>
-      {links.length === 0 ? <EmptyLinks/> : <FormLink /> }
+      {links.length === 0 ?
+       <EmptyLinks/> : 
+       
+       
+       links.map((link, i) => (
+        <FormLink
+        ranking={i}
+        key={i}
+        link={link.link}
+        updateLink={(newLink) => updateLink(i, newLink)}
+        removeLink={() => removeLink(i)}
+        placeholderLink={link.platform.split(' ').join('-').toLocaleLowerCase()}
+         />
+      )) }
     </section>
   );
 };
