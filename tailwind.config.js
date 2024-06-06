@@ -32,6 +32,7 @@ export default {
     backgroundImage : {
       'icon-mail' : "url(/src/assets/shared/icon/icon-mail.svg)",
       'icon-password' : "url(/src/assets/shared/icon/icon-password.svg)",
+      'illustration-mockup-links' : "url(/src/assets/shared/illustration-phone-mockup.svg)"
     },
 
     screens: {

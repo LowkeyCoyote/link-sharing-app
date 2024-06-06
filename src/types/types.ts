@@ -16,3 +16,8 @@ export type UpdateFormType = {
     email ?: string,
 }
 
+export type LinksInformation = {
+    platform : string;
+    link : string;
+}
+

@@ -34,6 +34,7 @@ export const loginUser = createAsyncThunk('auth/login', async (userData: SignInF
 export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, thunkAPI) => {
   try {
     const token = localStorage.getItem('token') ?? '';
+
     const response = await axios.get(`https://link-sharing.joska-gyuricza.fr/api/users`, {
       headers: {
         Authorization: `Bearer ${token}`,

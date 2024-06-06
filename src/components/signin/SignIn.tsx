@@ -21,7 +21,7 @@ const SignIn = () => {
     formState: { errors },
   } = useForm<SignInFormType>({
     mode: 'onSubmit',
-    reValidateMode: 'onChange'
+    reValidateMode: 'onChange',
   });
 
   const onSubmit = (data : SignInFormType) => {

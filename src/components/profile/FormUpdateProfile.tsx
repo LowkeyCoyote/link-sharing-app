@@ -19,7 +19,6 @@ const FormUpdateProfile = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-
   const {
     register,
     handleSubmit,
@@ -27,6 +26,7 @@ const FormUpdateProfile = () => {
     formState: { errors },
   } = useForm<UpdateFormType>({
     mode: 'onSubmit',
+    reValidateMode: 'onChange',
 
     defaultValues: {
       firstname: userInfo?.firstname || '',
@@ -37,6 +37,7 @@ const FormUpdateProfile = () => {
   });
 
   useEffect(() => {
+    console.log('hello');
     if (userInfo) {
       reset({
         firstname: userInfo.firstname,
@@ -44,9 +45,11 @@ const FormUpdateProfile = () => {
         email: userInfo.email,
         image: undefined,
       });
-      setImagePreview(userInfo.url)
+      console.log('hello');
+      setImagePreview(userInfo.url);
       setIsLoading(false);
     }
+    setIsLoading(false);
   }, [userInfo, reset]);
 
   const handleDivClick = () => {
@@ -83,13 +86,13 @@ const FormUpdateProfile = () => {
       }
 
       if (selectedImage) formData.append('image', selectedImage);
-     
+
       const actionResult = await dispatch(updateCurrentUser(formData));
       unwrapResult(actionResult);
       toast.success('Your profile has been modified', {
         position: 'bottom-right',
       });
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       toast.error('An error occurred while updating profile', {
         position: 'bottom-right',
@@ -143,7 +146,7 @@ const FormUpdateProfile = () => {
 
           <div className="p-5 mb-28 rounded-xl bg-light-grey">
             <div className="flex justify-between items-center">
-              <label htmlFor="firstname" className="text-grey">
+              <label htmlFor="firstname" className={`text-grey ${errors.firstname ? 'text-red' : ''}`}>
                 First name*
               </label>
               <FormField
@@ -153,7 +156,7 @@ const FormUpdateProfile = () => {
                 placeholder="e.g. John"
                 maxLength={40}
                 register={register}
-                className={`mb-3 w-[423px]`}
+                className={`mb-3 w-[423px] ${errors.firstname ? '!border-[#FF3939] !shadow-none' : ''}`}
                 error={errors.firstname && 'empty'}
                 validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý'][a-zA-ZÀ-ÖØ-Ýà-öø-ý'-]{1,49}$/}
                 labelVisible={false}
@@ -161,7 +164,7 @@ const FormUpdateProfile = () => {
             </div>
 
             <div className="flex justify-between items-center">
-              <label htmlFor="lastname" className="text-grey">
+              <label htmlFor="lastname" className={`text-grey ${errors.lastname ? 'text-red' : ''}`}>
                 Last name*
               </label>
               <FormField
@@ -171,7 +174,7 @@ const FormUpdateProfile = () => {
                 placeholder="e.g. Appleseed"
                 maxLength={40}
                 register={register}
-                className={`mb-3 w-[423px]`}
+                className={`mb-3 w-[423px] ${errors.lastname ? '!border-[#FF3939] !shadow-none' : ''}`}
                 error={errors.lastname && 'wrong format'}
                 validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý'][a-zA-ZÀ-ÖØ-Ýà-öø-ý'-]{1,49}$/}
                 labelVisible={false}
@@ -179,7 +182,7 @@ const FormUpdateProfile = () => {
             </div>
 
             <div className="flex justify-between items-center">
-              <label className="text-grey" htmlFor="email">
+              <label className={`text-grey ${errors.email ? 'text-red' : ''}`} htmlFor="email">
                 Email
               </label>
               <FormField
@@ -189,10 +192,11 @@ const FormUpdateProfile = () => {
                 placeholder="e.g. alex@email.com"
                 maxLength={40}
                 register={register}
-                className={`mb-3 w-[423px]`}
+                className={`mb-3 w-[423px] ${errors.email ? '!border-[#FF3939] !shadow-none' : ''}`}
                 validationPattern={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
                 labelVisible={false}
                 required={false}
+                error={errors.email && 'wrong format'}
               />
             </div>
           </div>
