@@ -4,17 +4,27 @@ import Button from '@components/shared/ui/Button';
 import iconLink from '@assets/shared/icon/icon-link.svg';
 import iconProfile from '@assets/shared/icon/icon-profile-details-header.svg';
 import iconPreview from '@assets/shared/icon/icon-preview-header.svg';
+import iconLogout from '@assets/shared/icon/icon-logout.svg'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useIsMobile from '@hooks/useIsMobile';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@redux/store';
+import { logout } from '@redux/authSlice';
 
 const Navbar = () => {
   const actualLocation = window.location.href.split('/')[window.location.href.split('/').length - 1];
   const [selectedLink, setSelectedLink] = useState<string>(actualLocation);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSelectedLink = (linkSelected: string) => {
     setSelectedLink(linkSelected);
   };
+
+  const logoutFromAccount = () => {
+    dispatch(logout())
+    window.location.reload()
+  }
 
   let isMobile = useIsMobile();
 
@@ -73,15 +83,33 @@ const Navbar = () => {
             </Link>
           </li>
         </ul>
+
       </nav>
 
-      <Button variant="secondary" className="px-4 py-3" link="/preview">
+      <div>
+      <Button 
+      variant="secondary" 
+      className="px-4 py-3 md:px-0 sm:px-4" 
+      link="/preview">
         {isMobile ? (
           <img className="min-w-[20px] min-h-[20px]" src={iconPreview} alt="preview" />
         ) : (
-          <p className="px-7 text-purple">Preview</p>
+          <p className="px-7 md:px-4 sm:px-7 text-purple">Preview</p>
         )}
       </Button>
+      <Button 
+      variant="logout" 
+      className=" ml-2 px-4 py-3 md:px-0 sm:px-4" 
+      onClick={logoutFromAccount}
+      >
+      {isMobile ? (
+          <img className="max-w-[20px] max-h-[20px]" src={iconLogout} alt="preview" />
+        ) : (
+          <p className="px-7 md:px-4 sm:px-7 text-red">Logout</p>
+        )}
+ 
+      </Button>
+      </div>
     </div>
   );
 };

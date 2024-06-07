@@ -65,6 +65,12 @@ export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (user
   }
 });
 
+export const logout = createAsyncThunk('auth/logout', async () => {
+  console.log('hi')
+  localStorage.removeItem("token")
+})
+
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -114,7 +120,13 @@ const authSlice = createSlice({
       })
       .addCase(updateCurrentUser.rejected, (state) => {
         state.isLoading = false;
+      })
+
+      .addCase(logout.fulfilled, (state) => {
+        state.isLoading = false;
+        state.currentUser = undefined;
       });
+      
   },
 });
 
