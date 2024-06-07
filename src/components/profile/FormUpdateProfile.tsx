@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
 const FormUpdateProfile = () => {
+
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(true);
@@ -106,19 +107,21 @@ const FormUpdateProfile = () => {
 
   return (
     <div>
-      <div className="p-10">
+      <div className="p-10 sm:p-6 rounded-lg bg-white">
         <h1 className="pb-2">Profile Details</h1>
         <p className="pb-10">Add your details to create a personal touch to your profile.</p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="p-5 rounded-xl bg-light-grey mb-6">
-            <div className="flex items-center justify-between">
-              <label className="text-grey" htmlFor="image">
+            <div className="flex items-center justify-between sm:flex-col sm:items-start">
+              <label className="text-grey font-medium sm:pb-4" htmlFor="image">
                 Profile Picture
               </label>
               <div
                 onClick={handleDivClick}
-                className={`h-[193px] w-[193px] bg-light-purple overflow-hidden rounded-xl cursor-pointer flex flex-col items-center justify-center bg-no-repeat bg-center bg-cover relative`}
+                className={`h-[193px] w-[193px] bg-light-purple overflow-hidden rounded-xl cursor-pointer flex flex-col items-center justify-center bg-no-repeat bg-center bg-cover relative
+                md:ml-10 sm:ml-0 sm:mb-6
+                `}
                 style={{
                   backgroundImage: imagePreview ? `url(${imagePreview})` : 'none',
                 }}
@@ -140,14 +143,14 @@ const FormUpdateProfile = () => {
                 <p className={`text-purple font-semibold ${imagePreview ? `text-white z-10` : ``}`}>+ Upload Image</p>
                 {imagePreview && <div className="overlay-dark-profile"></div>}
               </div>
-              <p className="max-w-[200px] text-p-small">Image must be below 1024x1024px. Use PNG or JPG format.</p>
+              <p className="max-w-[200px] text-p-small sm:max-w-full">Image must be below 1024x1024px. Use PNG or JPG format.</p>
             </div>
           </div>
 
-          <div className="p-5 mb-28 rounded-xl bg-light-grey">
-            <div className="flex justify-between items-center">
-              <label htmlFor="firstname" className={`text-grey ${errors.firstname ? 'text-red' : ''}`}>
-                First name*
+          <div className="p-5 mb-28 rounded-xl bg-light-grey sm:mb-6 ">
+            <div className="flex justify-between items-center sm:flex-col sm:items-start sm:w-full">
+              <label htmlFor="firstname" className={`text-grey sm:mb-0.5 sm:text-[12px] ${errors.firstname ? 'text-red' : ''}`}>
+                First name* 
               </label>
               <FormField
                 name="firstname"
@@ -156,16 +159,18 @@ const FormUpdateProfile = () => {
                 placeholder="e.g. John"
                 maxLength={40}
                 register={register}
-                className={`mb-3 w-[423px] ${errors.firstname ? '!border-[#FF3939] !shadow-none' : ''}`}
+                className={`mb-3 w-[423px] md:w-[344px] sm:w-full ${errors.firstname ? '!border-[#FF3939] !shadow-none' : ''}`}
                 error={errors.firstname && 'empty'}
-                validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý'][a-zA-ZÀ-ÖØ-Ýà-öø-ý'-]{1,49}$/}
+                validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý][a-zA-ZÀ-ÖØ-Ýà-öø-ý-]{1,49}$/}
                 labelVisible={false}
+                profilePage = {true}
+
               />
             </div>
 
-            <div className="flex justify-between items-center">
-              <label htmlFor="lastname" className={`text-grey ${errors.lastname ? 'text-red' : ''}`}>
-                Last name*
+            <div className="flex justify-between items-center sm:flex-col sm:items-start ">
+              <label htmlFor="lastname" className={`text-grey sm:mb-0.5 sm:text-[12px] ${errors.lastname ? 'text-red' : ''}`}>
+                Last name* 
               </label>
               <FormField
                 name="lastname"
@@ -174,15 +179,16 @@ const FormUpdateProfile = () => {
                 placeholder="e.g. Appleseed"
                 maxLength={40}
                 register={register}
-                className={`mb-3 w-[423px] ${errors.lastname ? '!border-[#FF3939] !shadow-none' : ''}`}
+                className={`mb-3 w-[423px] md:w-[344px] sm:w-full ${errors.lastname ? '!border-[#FF3939] !shadow-none' : ''}`}
                 error={errors.lastname && 'wrong format'}
-                validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý'][a-zA-ZÀ-ÖØ-Ýà-öø-ý'-]{1,49}$/}
+                validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý][a-zA-ZÀ-ÖØ-Ýà-öø-ý'-]{1,49}$/}
                 labelVisible={false}
+                profilePage = {true}
               />
             </div>
 
-            <div className="flex justify-between items-center">
-              <label className={`text-grey ${errors.email ? 'text-red' : ''}`} htmlFor="email">
+            <div className="flex justify-between items-center sm:flex-col sm:items-start">
+              <label className={`text-grey mb-0.5 sm:text-[12px] ${errors.email ? 'text-red' : ''}`} htmlFor="email">
                 Email
               </label>
               <FormField
@@ -192,16 +198,18 @@ const FormUpdateProfile = () => {
                 placeholder="e.g. alex@email.com"
                 maxLength={40}
                 register={register}
-                className={`mb-3 w-[423px] ${errors.email ? '!border-[#FF3939] !shadow-none' : ''}`}
+                className={`mb-3 w-[423px] md:w-[344px] sm:w-full ${errors.email ? '!border-[#FF3939] !shadow-none' : ''}`}
                 validationPattern={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
                 labelVisible={false}
                 required={false}
                 error={errors.email && 'wrong format'}
+                profilePage = {true}
+
               />
             </div>
           </div>
           <div className="border-t border-border justify-end flex -px-10 self-end">
-            <Button type="submit" className="px-7 mr-10 mt-6">
+            <Button type="submit" className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto">
               Save
             </Button>
           </div>

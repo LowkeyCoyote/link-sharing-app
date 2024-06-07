@@ -29,7 +29,7 @@ const Navbar = () => {
   let isMobile = useIsMobile();
 
   return (
-    <div className="flex items-center justify-between m-6 p-4 bg-white sm:m-0 sm:pr-4 sm:pl-6">
+    <div className="flex items-center justify-between m-6 p-4 bg-white sm:m-4 sm:pr-4 sm:pl-6">
       <img src={isMobile ? logoDevLinksSmall : logoDevlinksLarge} alt="devlinks" className="sm:h-[32px] sm:w-[32px]" />
 
       <nav>
@@ -94,7 +94,7 @@ const Navbar = () => {
         {isMobile ? (
           <img className="min-w-[20px] min-h-[20px]" src={iconPreview} alt="preview" />
         ) : (
-          <p className="px-7 md:px-4 sm:px-7 text-purple">Preview</p>
+          <p className="px-7 md:px-2 sm:px-7 text-purple font-medium">Preview</p>
         )}
       </Button>
       <Button 
@@ -105,7 +105,7 @@ const Navbar = () => {
       {isMobile ? (
           <img className="max-w-[20px] max-h-[20px]" src={iconLogout} alt="preview" />
         ) : (
-          <p className="px-7 md:px-4 sm:px-7 text-red">Logout</p>
+          <p className="px-7 md:px-2 sm:px-7 text-red font-medium">Logout</p>
         )}
  
       </Button>
