@@ -38,7 +38,6 @@ const FormUpdateProfile = () => {
   });
 
   useEffect(() => {
-    console.log('hello');
     if (userInfo) {
       reset({
         firstname: userInfo.firstname,
@@ -46,7 +45,6 @@ const FormUpdateProfile = () => {
         email: userInfo.email,
         image: undefined,
       });
-      console.log('hello');
       setImagePreview(userInfo.url);
       setIsLoading(false);
     }

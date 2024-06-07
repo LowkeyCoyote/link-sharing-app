@@ -49,16 +49,26 @@ export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, 
 export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (userData: FormData, thunkAPI) => {
   try {
     const token = localStorage.getItem('token') ?? '';
-    const response = await axios.put(
-      'https://link-sharing.joska-gyuricza.fr/api/users', userData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-  
+    const response = await axios.put('https://link-sharing.joska-gyuricza.fr/api/users', userData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.user;
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+});
+
+export const getLinksUser = createAsyncThunk('auth/getlinks', async (position: string, thunkAPI) => {
+  try {
+
+    const response = await axios.get(`https://link-sharing.joska-gyuricza.fr/api/users/link`, {
+      params: {
+        position : position
       }
-    );
+    });
     return response.data.user;
   } catch (err: any) {
     return thunkAPI.rejectWithValue(err.response.data);
@@ -66,10 +76,8 @@ export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (user
 });
 
 export const logout = createAsyncThunk('auth/logout', async () => {
-  console.log('hi')
-  localStorage.removeItem("token")
-})
-
+  localStorage.removeItem('token');
+});
 
 const authSlice = createSlice({
   name: 'auth',
@@ -126,7 +134,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.currentUser = undefined;
       });
-      
   },
 });
 

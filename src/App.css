@@ -25,6 +25,10 @@ input:focus{
   border: 1px solid #633cff;
 }
 
+.box-shadow-card{
+  box-shadow: 0 0 32px 0 rgba(0,0,0,.1);
+}
+
 .div-filter:hover > img{
   filter: brightness(0) saturate(100%) invert(23%) sepia(70%) saturate(3984%) hue-rotate(246deg) brightness(99%) contrast(105%);
 }

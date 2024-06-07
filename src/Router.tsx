@@ -8,11 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUser } from '@redux/authSlice';
 import { AppDispatch } from '@redux/store';
-
-
-
-
-
+import LinkShared from '@pages/LinksShared';
 
 const ProtectedRoutes = () => {
   const localStorageToken = localStorage.getItem('token');
@@ -37,6 +33,10 @@ const router = createBrowserRouter([
     element: <SignUpPage />,
   },
   {
+    path: '/link/:id',
+    element: <LinkShared />,
+  },
+  {
     element: <ProtectedRoutes />,
     children: [
       {
@@ -53,13 +53,14 @@ const router = createBrowserRouter([
       },
     ],
   },
+
 ]);
 
 export default function Router() {
-    const dispatch = useDispatch<AppDispatch>()
-    useEffect(() => {
-        dispatch(getCurrentUser())
-    },[dispatch])
-    
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   return <RouterProvider router={router} />;
 }
