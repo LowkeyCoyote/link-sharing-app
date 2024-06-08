@@ -53,11 +53,11 @@ const GestionLinks = () => {
               placeholderLink={link.platform.split(' ').join('-').toLocaleLowerCase()}
             />
           ))}
-        <div className="border-t border-border justify-end flex -px-10 self-end">
-        <Button type="submit" className="px-7 mr-10 mt-6">
-          Save
-        </Button>
-      </div>
+          <div className="border-t border-border justify-end flex -px-10 self-end">
+            <Button type="submit" className="px-7 mr-10 mt-6">
+              Save
+            </Button>
+          </div>
         </>
       )}
     </section>

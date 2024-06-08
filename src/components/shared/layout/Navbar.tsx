@@ -4,7 +4,7 @@ import Button from '@components/shared/ui/Button';
 import iconLink from '@assets/shared/icon/icon-link.svg';
 import iconProfile from '@assets/shared/icon/icon-profile-details-header.svg';
 import iconPreview from '@assets/shared/icon/icon-preview-header.svg';
-import iconLogout from '@assets/shared/icon/icon-logout.svg'
+import iconLogout from '@assets/shared/icon/icon-logout.svg';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useIsMobile from '@hooks/useIsMobile';
@@ -22,9 +22,9 @@ const Navbar = () => {
   };
 
   const logoutFromAccount = () => {
-    dispatch(logout())
-    window.location.reload()
-  }
+    dispatch(logout());
+    window.location.reload();
+  };
 
   let isMobile = useIsMobile();
 
@@ -83,32 +83,23 @@ const Navbar = () => {
             </Link>
           </li>
         </ul>
-
       </nav>
 
       <div>
-      <Button 
-      variant="secondary" 
-      className="px-4 py-3 md:px-0 sm:px-4" 
-      link="/preview">
-        {isMobile ? (
-          <img className="min-w-[20px] min-h-[20px]" src={iconPreview} alt="preview" />
-        ) : (
-          <p className="px-7 md:px-2 sm:px-7 text-purple font-medium">Preview</p>
-        )}
-      </Button>
-      <Button 
-      variant="logout" 
-      className=" ml-2 px-4 py-3 md:px-0 sm:px-4" 
-      onClick={logoutFromAccount}
-      >
-      {isMobile ? (
-          <img className="max-w-[20px] max-h-[20px]" src={iconLogout} alt="preview" />
-        ) : (
-          <p className="px-7 md:px-2 sm:px-7 text-red font-medium">Logout</p>
-        )}
- 
-      </Button>
+        <Button variant="secondary" className="px-4 py-3 md:px-0 sm:px-4" link="/preview">
+          {isMobile ? (
+            <img className="min-w-[20px] min-h-[20px]" src={iconPreview} alt="preview" />
+          ) : (
+            <p className="px-7 md:px-2 sm:px-7 text-purple font-medium">Preview</p>
+          )}
+        </Button>
+        <Button variant="logout" className=" ml-2 px-4 py-3 md:px-0 sm:px-4" onClick={logoutFromAccount}>
+          {isMobile ? (
+            <img className="max-w-[20px] max-h-[20px]" src={iconLogout} alt="preview" />
+          ) : (
+            <p className="px-7 md:px-2 sm:px-7 text-red font-medium">Logout</p>
+          )}
+        </Button>
       </div>
     </div>
   );

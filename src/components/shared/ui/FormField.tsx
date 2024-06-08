@@ -6,15 +6,14 @@ interface FormFieldProps extends HTMLAttributes<HTMLAllCollection> {
   name: string;
   type: string;
   icon?: boolean;
-  labelVisible ?: boolean;
+  labelVisible?: boolean;
   placeholder: string;
   error?: string;
   register: any;
   validationPattern?: RegExp;
-  maxLength?: number;  
-  required ?: boolean;
-  profilePage ?: boolean
-
+  maxLength?: number;
+  required?: boolean;
+  profilePage?: boolean;
 }
 
 const FormField = ({
@@ -30,15 +29,15 @@ const FormField = ({
   validationPattern,
   maxLength,
   required = true,
-  profilePage = false
+  profilePage = false,
 }: FormFieldProps) => {
   return (
     <div className={`flex flex-col ${profilePage ? 'sm:w-full' : ''}`}>
       {labelVisible ? (
         <label className={`${error ? `text-red` : `text-grey`} pb-1 text-p-small`} htmlFor={name}>
-        {label}
-      </label>
-      ): (
+          {label}
+        </label>
+      ) : (
         ''
       )}
       <input

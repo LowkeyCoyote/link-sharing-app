@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
 const FormUpdateProfile = () => {
-
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(true);
@@ -141,14 +140,19 @@ const FormUpdateProfile = () => {
                 <p className={`text-purple font-semibold ${imagePreview ? `text-white z-10` : ``}`}>+ Upload Image</p>
                 {imagePreview && <div className="overlay-dark-profile"></div>}
               </div>
-              <p className="max-w-[200px] text-p-small sm:max-w-full">Image must be below 1024x1024px. Use PNG or JPG format.</p>
+              <p className="max-w-[200px] text-p-small sm:max-w-full">
+                Image must be below 1024x1024px. Use PNG or JPG format.
+              </p>
             </div>
           </div>
 
           <div className="p-5 mb-28 rounded-xl bg-light-grey sm:mb-6 ">
             <div className="flex justify-between items-center sm:flex-col sm:items-start sm:w-full">
-              <label htmlFor="firstname" className={`text-grey sm:mb-0.5 sm:text-[12px] ${errors.firstname ? 'text-red' : ''}`}>
-                First name* 
+              <label
+                htmlFor="firstname"
+                className={`text-grey sm:mb-0.5 sm:text-[12px] ${errors.firstname ? 'text-red' : ''}`}
+              >
+                First name*
               </label>
               <FormField
                 name="firstname"
@@ -161,14 +165,16 @@ const FormUpdateProfile = () => {
                 error={errors.firstname && 'empty'}
                 validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý][a-zA-ZÀ-ÖØ-Ýà-öø-ý-]{1,49}$/}
                 labelVisible={false}
-                profilePage = {true}
-
+                profilePage={true}
               />
             </div>
 
             <div className="flex justify-between items-center sm:flex-col sm:items-start ">
-              <label htmlFor="lastname" className={`text-grey sm:mb-0.5 sm:text-[12px] ${errors.lastname ? 'text-red' : ''}`}>
-                Last name* 
+              <label
+                htmlFor="lastname"
+                className={`text-grey sm:mb-0.5 sm:text-[12px] ${errors.lastname ? 'text-red' : ''}`}
+              >
+                Last name*
               </label>
               <FormField
                 name="lastname"
@@ -181,7 +187,7 @@ const FormUpdateProfile = () => {
                 error={errors.lastname && 'wrong format'}
                 validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý][a-zA-ZÀ-ÖØ-Ýà-öø-ý'-]{1,49}$/}
                 labelVisible={false}
-                profilePage = {true}
+                profilePage={true}
               />
             </div>
 
@@ -201,8 +207,7 @@ const FormUpdateProfile = () => {
                 labelVisible={false}
                 required={false}
                 error={errors.email && 'wrong format'}
-                profilePage = {true}
-
+                profilePage={true}
               />
             </div>
           </div>

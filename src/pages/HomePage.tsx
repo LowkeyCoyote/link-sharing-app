@@ -11,7 +11,7 @@ const HomePage = () => {
           <MockupLinks />
         </div>
         <div className="bg-white w-[65%] rounded-xl md:w-full p-10 sm:p-6">
-        <GestionLinks />
+          <GestionLinks />
         </div>
       </div>
     </div>

@@ -1,11 +1,10 @@
-import { useParams } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { getLinksUser } from "@redux/authSlice";
-import { AppDispatch } from "@redux/store";
-import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getLinksUser } from '@redux/authSlice';
+import { AppDispatch } from '@redux/store';
+import { useEffect, useState } from 'react';
 
 const LinkShared = () => {
-
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const [user, setUser] = useState(null);
@@ -21,12 +20,12 @@ const LinkShared = () => {
       }
 
       try {
-        const result : any = await dispatch(getLinksUser(id));
+        const result: any = await dispatch(getLinksUser(id));
         setUser(result);
-        console.log(user)
-        console.log(loading)
-        console.log(error)
-      } catch (err : any) {
+        console.log(user);
+        console.log(loading);
+        console.log(error);
+      } catch (err: any) {
         setError(err);
       } finally {
         setLoading(false);
@@ -36,13 +35,7 @@ const LinkShared = () => {
     fetchUser();
   }, [id, dispatch]);
 
+  return <div></div>;
+};
 
-  
-  return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default LinkShared
+export default LinkShared;
