@@ -5,20 +5,24 @@ import iconLink from '@assets/shared/icon/icon-link.svg';
 import iconProfile from '@assets/shared/icon/icon-profile-details-header.svg';
 import iconPreview from '@assets/shared/icon/icon-preview-header.svg';
 import iconLogout from '@assets/shared/icon/icon-logout.svg';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useIsMobile from '@hooks/useIsMobile';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@redux/store';
 import { logout } from '@redux/authSlice';
 
-const Navbar = () => {
-  const actualLocation = window.location.href.split('/')[window.location.href.split('/').length - 1];
-  const [selectedLink, setSelectedLink] = useState<string>(actualLocation);
+interface NavbarProps {
+  handleChangeTab: (tab: string) => void;
+}
+
+const Navbar = ({ handleChangeTab }: NavbarProps) => {
+  const [selectedLink, setSelectedLink] = useState<string>('home');
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleSelectedLink = (linkSelected: string) => {
-    setSelectedLink(linkSelected);
+  const handleChangeTabSelected = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSelectedLink(e.currentTarget.value);
+    handleChangeTab(e.currentTarget.value);
   };
 
   const logoutFromAccount = () => {
@@ -35,7 +39,7 @@ const Navbar = () => {
       <nav>
         <ul className="flex items-center gap-4 md:gap-0">
           <li>
-            <Link to="/home" onClick={() => handleSelectedLink('/home')}>
+            <button onClick={handleChangeTabSelected} value="home">
               <div
                 className={`group div-filter py-3 px-7 flex items-center gap-2 rounded-lg hover:bg-light-purple duration-100 ease-in-out ${
                   selectedLink === 'home' ? 'bg-light-purple' : ''
@@ -56,10 +60,10 @@ const Navbar = () => {
                   Links
                 </p>
               </div>
-            </Link>
+            </button>
           </li>
           <li>
-            <Link to="/profile" onClick={() => handleSelectedLink('/profile')}>
+            <button onClick={handleChangeTabSelected} value="profile">
               <div
                 className={`group div-filter py-3 px-7 flex items-center gap-2 rounded-lg hover:bg-light-purple duration-100 ease-in-out ${
                   selectedLink === 'profile' ? 'bg-light-purple' : ''
@@ -80,7 +84,7 @@ const Navbar = () => {
                   Profile
                 </p>
               </div>
-            </Link>
+            </button>
           </li>
         </ul>
       </nav>

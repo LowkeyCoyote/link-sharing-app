@@ -5,6 +5,7 @@ import axios from 'axios';
 const initialState = {
   currentUser: undefined,
   isLoading: false,
+  isDemo : false
 };
 
 export const registerUser = createAsyncThunk('auth/register', async (userData: SignUpFormType, thunkAPI) => {
@@ -54,20 +55,6 @@ export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (user
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
-    });
-    return response.data.user;
-  } catch (err: any) {
-    return thunkAPI.rejectWithValue(err.response.data);
-  }
-});
-
-export const getLinksUser = createAsyncThunk('auth/getlinks', async (position: string, thunkAPI) => {
-  try {
-
-    const response = await axios.get(`https://link-sharing.joska-gyuricza.fr/api/users/link`, {
-      params: {
-        position : position
-      }
     });
     return response.data.user;
   } catch (err: any) {

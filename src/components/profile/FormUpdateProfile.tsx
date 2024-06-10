@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
-import { updateCurrentUser } from '@redux/authSlice';
+import { getCurrentUser, updateCurrentUser } from '@redux/authSlice';
 import { AppDispatch } from '@redux/store';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +32,7 @@ const FormUpdateProfile = () => {
       firstname: userInfo?.firstname || '',
       lastname: userInfo?.lastname || '',
       email: userInfo?.email || '',
-      image: undefined,
+      image: userInfo?.url || ''
     },
   });
 
@@ -42,7 +42,7 @@ const FormUpdateProfile = () => {
         firstname: userInfo.firstname,
         lastname: userInfo.lastname,
         email: userInfo.email,
-        image: undefined,
+        image: userInfo.url,
       });
       setImagePreview(userInfo.url);
       setIsLoading(false);
@@ -86,11 +86,16 @@ const FormUpdateProfile = () => {
       if (selectedImage) formData.append('image', selectedImage);
 
       const actionResult = await dispatch(updateCurrentUser(formData));
-      unwrapResult(actionResult);
+      unwrapResult(actionResult)
+      await dispatch(getCurrentUser())
+    
+   
       toast.success('Your profile has been modified', {
         position: 'bottom-right',
       });
-      window.location.reload();
+      
+
+      
     } catch (error) {
       toast.error('An error occurred while updating profile', {
         position: 'bottom-right',

@@ -21,3 +21,10 @@ export type LinksInformation = {
     link : string;
 }
 
+export type LinkInfo = {
+    email : string;
+    firstname ?: string;
+    lastname ?: string;
+    url ?: string;
+}
+

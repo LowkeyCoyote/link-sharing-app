@@ -3,7 +3,6 @@ import SignInPage from '@pages/SignInPage';
 import SignUpPage from '@pages/SignUpPage';
 import HomePage from '@pages/HomePage';
 import PreviewPage from '@pages/PreviewPage';
-import ProfilePage from '@pages/ProfilePage';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUser } from '@redux/authSlice';
@@ -46,10 +45,6 @@ const router = createBrowserRouter([
       {
         path: '/preview',
         element: <PreviewPage />,
-      },
-      {
-        path: '/profile',
-        element: <ProfilePage />,
       },
     ],
   },
