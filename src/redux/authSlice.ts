@@ -2,11 +2,23 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SignInFormType, SignUpFormType } from 'src/types/types';
 import axios from 'axios';
 
+
 const initialState = {
-  currentUser: undefined,
+  currentUser : undefined,
   isLoading: false,
   isDemo : false
 };
+
+const demoUser = {
+  email : "email@example.com",
+  firstname : "John",
+  lastname : "Appleseed",
+  links : [
+    {platform : 'Github', link : ''},
+    {platform : 'Github', link : ''},
+    {platform : 'Github', link : ''},
+  ]
+}
 
 export const registerUser = createAsyncThunk('auth/register', async (userData: SignUpFormType, thunkAPI) => {
   try {
@@ -64,12 +76,18 @@ export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (user
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   localStorage.removeItem('token');
+  localStorage.removeItem('demo');
 });
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    getDemoUser: (state : any) => {
+      state.isDemo = true
+      state.currentUser = demoUser
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -120,8 +138,11 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.currentUser = undefined;
+        state.isDemo = false;
       });
   },
 });
+
+export const { getDemoUser } = authSlice.actions;
 
 export default authSlice.reducer;

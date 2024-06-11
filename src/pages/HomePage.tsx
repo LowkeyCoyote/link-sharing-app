@@ -14,7 +14,7 @@ const HomePage = () => {
     <div>
       <Navbar handleChangeTab={handleTabSelectedChange} />
       <div className="flex px-6 gap-6 sm:px-4">
-        <div className="bg-white flex justify-center items-center w-[35%] rounded-xl md:hidden relative">
+        <div className="bg-white flex justify-center w-[35%] rounded-xl md:hidden relative">
           <MockupLinks />
         </div>
         <div className="bg-white w-[65%] rounded-xl md:w-full p-10 sm:p-6">

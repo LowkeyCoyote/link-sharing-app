@@ -10,9 +10,12 @@ import { UpdateFormType } from 'src/types/types';
 import iconUploadImage from '@assets/shared/icon/icon-upload-image.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import demoProfile from '@assets/shared/demo-profile.png';
 
 const FormUpdateProfile = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
+  const isDemo = useSelector((state: any) => state.authSlice.currentUser);
+
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -32,7 +35,7 @@ const FormUpdateProfile = () => {
       firstname: userInfo?.firstname || '',
       lastname: userInfo?.lastname || '',
       email: userInfo?.email || '',
-      image: userInfo?.url || ''
+      image: userInfo?.url || '',
     },
   });
 
@@ -44,8 +47,14 @@ const FormUpdateProfile = () => {
         email: userInfo.email,
         image: userInfo.url,
       });
+ 
+
       setImagePreview(userInfo.url);
       setIsLoading(false);
+    }
+    else{
+      setImagePreview(demoProfile)
+      setIsLoading(false)
     }
     setIsLoading(false);
   }, [userInfo, reset]);
@@ -75,6 +84,10 @@ const FormUpdateProfile = () => {
   };
 
   const onSubmit = async (data: UpdateFormType) => {
+    if (isDemo) {
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('firstname', data.firstname);
@@ -86,16 +99,12 @@ const FormUpdateProfile = () => {
       if (selectedImage) formData.append('image', selectedImage);
 
       const actionResult = await dispatch(updateCurrentUser(formData));
-      unwrapResult(actionResult)
-      await dispatch(getCurrentUser())
-    
-   
+      unwrapResult(actionResult);
+      await dispatch(getCurrentUser());
+
       toast.success('Your profile has been modified', {
         position: 'bottom-right',
       });
-      
-
-      
     } catch (error) {
       toast.error('An error occurred while updating profile', {
         position: 'bottom-right',
@@ -109,7 +118,7 @@ const FormUpdateProfile = () => {
 
   return (
     <div>
-      <div className="p-10 sm:p-6 rounded-lg bg-white">
+      <div className="sm:p-6 rounded-lg bg-white">
         <h1 className="pb-2">Profile Details</h1>
         <p className="pb-10">Add your details to create a personal touch to your profile.</p>
 
@@ -217,8 +226,13 @@ const FormUpdateProfile = () => {
             </div>
           </div>
           <div className="border-t border-border justify-end flex -px-10 self-end">
-            <Button type="submit" className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto">
+            <Button
+              variant={isDemo ? 'demo' : 'primary'}
+              type="submit"
+              className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto"
+            >
               Save
+              {isDemo && <p className=" font-thin text-[10px]">Not available on demo</p>}
             </Button>
           </div>
         </form>

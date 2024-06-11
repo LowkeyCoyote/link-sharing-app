@@ -9,11 +9,19 @@ import { AppDispatch } from '@redux/store';
 import { loginUser } from '@redux/authSlice';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import { getDemoUser } from '@redux/authSlice';
 
 const SignIn = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
+
+  const setDemoInfo = () => {
+    localStorage.setItem('token', 'token-demo')
+    localStorage.setItem('demo', 'true')
+    dispatch(getDemoUser())
+    navigate('/home')
+  }
 
   const {
     register,
@@ -78,6 +86,15 @@ const SignIn = () => {
               {' '}
               Create account
             </Link>
+
+            <Button 
+            className='px-4 mt-6' 
+            variant={'secondary'}
+            onClick={setDemoInfo}
+            
+            >
+              Try our demo version ! 
+            </Button>
           </p>
         </form>
       </div>

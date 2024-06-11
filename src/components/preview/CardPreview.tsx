@@ -1,10 +1,18 @@
 import placeholderProfile from '@assets/shared/placeholder-img.png';
+import { useSelector } from 'react-redux';
+import demoProfile from '@assets/shared/demo-profile.png'
+
+
 
 interface CardPreviewProps {
   userInfo: any;
 }
 
 const CardPreview = ({ userInfo }: CardPreviewProps) => {
+
+  const isDemo = useSelector((state : any) => state.authSlice.isDemo)
+
+
   if (!userInfo) {
     return <p>Loading ...</p>;
   }
@@ -23,11 +31,13 @@ const CardPreview = ({ userInfo }: CardPreviewProps) => {
           }}
         ></div>
       ) : (
-        <img
-          src={placeholderProfile}
-          className="h-[120px] w-[120px] border-4 border-purple rounded-full mb-6"
-          alt="placeholder profile picture"
-        />
+        <div
+        className="h-[120px] w-[120px] bg-center bg-cover rounded-full border-4 border-purple mb-6"
+        style={{
+          backgroundImage: `url(${isDemo ? demoProfile : placeholderProfile })`,
+        }}
+      ></div>
+      
       )}
       <h1 className="font-semibold mb-2">
         {userInfo.firstname} {userInfo.lastname}

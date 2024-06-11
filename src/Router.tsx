@@ -3,9 +3,9 @@ import SignInPage from '@pages/SignInPage';
 import SignUpPage from '@pages/SignUpPage';
 import HomePage from '@pages/HomePage';
 import PreviewPage from '@pages/PreviewPage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCurrentUser } from '@redux/authSlice';
+import { getCurrentUser, getDemoUser } from '@redux/authSlice';
 import { AppDispatch } from '@redux/store';
 import LinkShared from '@pages/LinksShared';
 
@@ -51,10 +51,18 @@ const router = createBrowserRouter([
 
 ]);
 
+
+
 export default function Router() {
   const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(getCurrentUser());
+
+  useEffect(() => {    
+    if(localStorage.getItem('demo') === null){
+      dispatch(getCurrentUser());
+    }
+    if(localStorage.getItem('demo')){
+      dispatch(getDemoUser())
+    }
   }, [dispatch]);
 
   return <RouterProvider router={router} />;

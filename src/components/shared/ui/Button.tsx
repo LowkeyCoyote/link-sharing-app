@@ -32,6 +32,7 @@ const buttonVariants = cva('py-4 duration-100 ease-in-out text-center font-semib
       primary: 'bg-purple text-white hover:bg-purple-hover',
       secondary: 'bg-white text-purple border-2 border-purple hover:bg-light-purple',
       logout: 'bg-white text-red border-2 border-red hover:bg-red hover:bg-opacity-10',
+      demo : 'bg-light-purple text-purple border-none cursor-default'
     },
   },
   defaultVariants: {
