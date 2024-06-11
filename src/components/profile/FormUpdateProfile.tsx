@@ -14,7 +14,7 @@ import demoProfile from '@assets/shared/demo-profile.png';
 
 const FormUpdateProfile = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
-  const isDemo = useSelector((state: any) => state.authSlice.currentUser);
+  const isDemo = useSelector((state: any) => state.authSlice.isDemo);
 
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(true);
@@ -173,7 +173,7 @@ const FormUpdateProfile = () => {
                 label="firstname"
                 type="text"
                 placeholder="e.g. John"
-                maxLength={40}
+                maxLength={25}
                 register={register}
                 className={`mb-3 w-[423px] md:w-[344px] sm:w-full ${errors.firstname ? '!border-[#FF3939] !shadow-none' : ''}`}
                 error={errors.firstname && 'empty'}
@@ -195,7 +195,7 @@ const FormUpdateProfile = () => {
                 label="lastname"
                 type="text"
                 placeholder="e.g. Appleseed"
-                maxLength={40}
+                maxLength={25}
                 register={register}
                 className={`mb-3 w-[423px] md:w-[344px] sm:w-full ${errors.lastname ? '!border-[#FF3939] !shadow-none' : ''}`}
                 error={errors.lastname && 'wrong format'}

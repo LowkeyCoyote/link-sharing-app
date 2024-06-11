@@ -1,12 +1,33 @@
 import { useSelector } from 'react-redux';
-import demoProfile from '@assets/shared/demo-profile.png'
+import demoProfile from '@assets/shared/demo-profile.png';
+import LinkTab from '@components/shared/LinkTab';
+import { useState } from 'react';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import { SortableContext, arrayMove } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 
 const MockupLinks = () => {
+  let linkList = [
+    { platform: 'GitHub', link: '', id: 1 },
+    { platform: 'CodeWars', link: '', id: 2 },
+    { platform : 'GitLab', link : '', id: 3 }
+  ];
+
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
 
+  const [links, setLinks] = useState(linkList);
 
-  console.log(userInfo)
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      setLinks((links) => {
+        const oldIndex = links.findIndex((link) => link.id === active.id);
+        const newIndex = links.findIndex((link) => link.id === over.id);
+        return arrayMove(links, oldIndex, newIndex);
+      });
+    }
+  };
 
   if (!userInfo) {
     return <p>Loading ...</p>;
@@ -14,12 +35,23 @@ const MockupLinks = () => {
 
   return (
     <div className="relative h-[631px] w-[307px] bg-illustration-mockup-links bg-no-repeat flex flex-col items-center mt-[101px]">
-      <div className='w-24 h-24 rounded-full bg-center bg-no-repeat bg-contain mt-16' style={{backgroundImage : `url(${isDemo ? demoProfile : userInfo.url})`}}>
-      </div>
-      <p className="text-[18px] text-dark-grey mt-5 bg-white w-[160px] text-center">
+      <div
+        className="w-24 h-24 rounded-full bg-center bg-no-repeat bg-contain mt-16"
+        style={{ backgroundImage: `url(${isDemo ? demoProfile : userInfo.url})` }}
+      ></div>
+      <p className="text-[18px] text-dark-grey mt-5 bg-white w-[240px] text-center">
         {userInfo.firstname} {userInfo.lastname}
       </p>
-      <p className="text-[14px] w-[160px] text-center bg-white">{userInfo.email}</p>
+      <p className="text-[14px] w-[240px] mx-auto text-center bg-white">{userInfo.email}</p>
+      <div className="absolute top-[277.5px]">
+        <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
+          <SortableContext items={links}>
+            {links.map((link) => (
+              <LinkTab platform={link.platform} key={link.id} id={link.id} />
+            ))}
+          </SortableContext>
+        </DndContext>
+      </div>
     </div>
   );
 };

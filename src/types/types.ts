@@ -21,11 +21,25 @@ export type LinksInformation = {
     link : string;
 }
 
+export type LinkTabInformation = {
+    platform : string;
+    link : string;
+    id : number;
+}
+
 export type LinkInfo = {
     email : string;
     firstname ?: string;
     lastname ?: string;
     url ?: string;
+}
+
+export type User = {
+    email : string;
+    firstname ?: string;
+    lastname ?: string;
+    url ?: string;
+    links ?: LinkTabInformation[]
 }
 
 
