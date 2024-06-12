@@ -1,22 +1,33 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch } from '@redux/store';
 import demoProfile from '@assets/shared/demo-profile.png';
 import LinkTab from '@components/shared/LinkTab';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { LinkUser, LinkUserWithId } from 'src/types/types';
+import { modifyLinks } from '@redux/authSlice';
+
+
+
 
 const MockupLinks = () => {
-  let linkList = [
-    { platform: 'GitHub', link: '', id: 1 },
-    { platform: 'CodeWars', link: '', id: 2 },
-    { platform : 'GitLab', link : '', id: 3 }
-  ];
-
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const [links, setLinks] = useState(linkList);
+  const [links, setLinks] = useState<LinkUserWithId[]>([]);
+
+  useEffect(() => {
+    if (userInfo && userInfo.links) {
+      const linksUserWithId = userInfo.links.map((link: LinkUser, index: number) => {
+        return { ...link, id: index + 1 };
+      });
+      setLinks(linksUserWithId);
+    }
+  }, [userInfo]);
+
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -24,6 +35,8 @@ const MockupLinks = () => {
       setLinks((links) => {
         const oldIndex = links.findIndex((link) => link.id === active.id);
         const newIndex = links.findIndex((link) => link.id === over.id);
+        arrayMove(links, oldIndex, newIndex).map((link) => console.log(link))
+        dispatch(modifyLinks(arrayMove(links, oldIndex, newIndex).map((link) => ({ platform: link.platform, link : link.url  }))))
         return arrayMove(links, oldIndex, newIndex);
       });
     }
@@ -34,7 +47,7 @@ const MockupLinks = () => {
   }
 
   return (
-    <div className="relative h-[631px] w-[307px] bg-illustration-mockup-links bg-no-repeat flex flex-col items-center mt-[101px]">
+    <div className="relative h-[631px] w-[307px] bg-illustration-mockup-links bg-no-repeat flex flex-col items-center my-[101px]">
       <div
         className="w-24 h-24 rounded-full bg-center bg-no-repeat bg-contain mt-16"
         style={{ backgroundImage: `url(${isDemo ? demoProfile : userInfo.url})` }}

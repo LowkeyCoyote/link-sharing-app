@@ -4,12 +4,8 @@ import Button from '@components/shared/ui/Button';
 import iconLink from '@assets/shared/icon/icon-link.svg';
 import iconProfile from '@assets/shared/icon/icon-profile-details-header.svg';
 import iconPreview from '@assets/shared/icon/icon-preview-header.svg';
-import iconLogout from '@assets/shared/icon/icon-logout.svg';
 import { useState } from 'react';
 import useIsMobile from '@hooks/useIsMobile';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@redux/store';
-import { logout } from '@redux/authSlice';
 
 interface NavbarProps {
   handleChangeTab: (tab: string) => void;
@@ -17,7 +13,6 @@ interface NavbarProps {
 
 const Navbar = ({ handleChangeTab }: NavbarProps) => {
   const [selectedLink, setSelectedLink] = useState<string>('home');
-  const dispatch = useDispatch<AppDispatch>();
 
   const handleChangeTabSelected = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -25,10 +20,7 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
     handleChangeTab(e.currentTarget.value);
   };
 
-  const logoutFromAccount = () => {
-    dispatch(logout());
-    window.location.reload();
-  };
+
 
   let isMobile = useIsMobile();
 
@@ -95,13 +87,6 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
             <img className="min-w-[20px] min-h-[20px]" src={iconPreview} alt="preview" />
           ) : (
             <p className="px-7 md:px-2 sm:px-7 text-purple font-medium">Preview</p>
-          )}
-        </Button>
-        <Button variant="logout" className=" ml-2 px-4 py-3 md:px-0 sm:px-4" onClick={logoutFromAccount}>
-          {isMobile ? (
-            <img className="max-w-[20px] max-h-[20px]" src={iconLogout} alt="preview" />
-          ) : (
-            <p className="px-7 md:px-2 sm:px-7 text-red font-medium">Logout</p>
           )}
         </Button>
       </div>

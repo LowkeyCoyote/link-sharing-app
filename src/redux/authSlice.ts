@@ -14,9 +14,9 @@ const demoUser = {
   firstname : "John",
   lastname : "Appleseed",
   links : [
-    {platform : 'Github', link : ''},
-    {platform : 'Github', link : ''},
-    {platform : 'Github', link : ''},
+    {platform : 'GitHub', url : 'hello'},
+    {platform : 'CodeWars', url : 'hello'},
+    {platform : 'Twitch', url : 'hello'},
   ]
 }
 
@@ -86,6 +86,9 @@ const authSlice = createSlice({
     getDemoUser: (state : any) => {
       state.isDemo = true
       state.currentUser = demoUser
+    },
+    modifyLinks: (state : any, action) => {
+      state.currentUser = {...state.currentUser, links : action.payload}
     }
   },
   extraReducers: (builder) => {
@@ -143,6 +146,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { getDemoUser } = authSlice.actions;
+export const { getDemoUser, modifyLinks } = authSlice.actions;
 
 export default authSlice.reducer;

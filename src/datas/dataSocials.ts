@@ -13,28 +13,30 @@ import iconStackOverflow from '@assets/shared/socials/icon-stack-overflow.svg';
 import iconTwitch from '@assets/shared/socials/icon-twitch.svg';
 import iconTwitter from '@assets/shared/socials/icon-twitter.svg';
 import iconYoutube from '@assets/shared/socials/icon-youtube.svg';
+import iconFaceBook from "@assets/shared/socials/icon-facebook.svg"
 
 
 type socialInfosType = {
     platform : string;
     color : string;
-    textBlack ?: boolean;
+    textGrey ?: boolean;
+    arrowGrey ?: boolean;
 }
 
 export const socialInfosArray : socialInfosType[] = [
     {platform : "GitHub", color : "#1A1A1A"},
-    {platform : "Frontend Mentor", color : "#FFFFFF", textBlack : true},
+    {platform : "FrontEndMentor", color : "#FFFFFF", textGrey : true, arrowGrey : true},
     {platform : "Twitter", color : "#43B7E9"},
     {platform : "Linkedin", color : "#2D68FF"},
     {platform : "Youtube", color : "#EE3939"},
-    {platform : "Facebook", color : "#2442AC"},
+    {platform : "FaceBook", color : "#2442AC"},
     {platform : "Twitch", color : "#EE3FC8"},
-    {platform : "DevTo", color : "#333333", textBlack : true},
+    {platform : "DevTo", color : "#333333", textGrey : true},
     {platform : "CodeWars", color : "#8A1A50"},
-    {platform : "freeCodeCamp", color : "#302267"},
-    {platform : "Gitlab", color : "#EB4925"},
+    {platform : "FreeCodeCamp", color : "#302267"},
+    {platform : "GitLab", color : "#EB4925"},
     {platform : "Hashnode", color : "#0330D1"},
-    {platform : "Stack Overflow", color : "#EC7100"},
+    {platform : "StackOverflow", color : "#EC7100"},
 ]
 
 export const iconMapping : any  = {
@@ -51,5 +53,6 @@ export const iconMapping : any  = {
     Twitch: iconTwitch,
     Twitter: iconTwitter,
     Youtube: iconYoutube,
+    FaceBook: iconFaceBook,
   };
   

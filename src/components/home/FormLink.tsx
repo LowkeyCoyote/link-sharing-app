@@ -1,5 +1,7 @@
 import iconDragAndDrop from '@assets/shared/icon/icon-drag-and-drop.svg';
 import { ChangeEvent } from 'react';
+import { useSortable,  } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 type FormLinkProps = {
   ranking: number;
@@ -7,21 +9,45 @@ type FormLinkProps = {
   placeholderLink: string;
   updateLink: (newLink: string) => void;
   removeLink: () => void;
+  id : number;
 };
 
-const FormLink = ({ ranking, link, placeholderLink, updateLink, removeLink }: FormLinkProps) => {
+
+const FormLink = ({ ranking, link, placeholderLink, updateLink, removeLink, id }: FormLinkProps) => {
+
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     updateLink(e.target.value);
   };
 
+  const handleRemoveClick = (e: React.MouseEvent<HTMLParagraphElement>) => {
+    e.stopPropagation(); 
+    removeLink();
+  };
+
+
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    cursor : 'default'
+  };
+
+
   return (
-    <div className="w-full bg-light-grey rounded-lg p-5 mb-6">
+    <div 
+    className="w-full bg-light-grey rounded-lg p-5 mb-6"
+    ref={setNodeRef}
+    {...attributes}
+    {...listeners}
+    style={style}
+    >
       <div className="flex justify-between items-center mb-3">
         <div className="flex items-center">
           <img src={iconDragAndDrop} alt="drag and drop" />
           <p className="ml-2 font-medium">Link #{(ranking + 1).toString()}</p>
         </div>
-        <p onClick={removeLink}>Remove</p>
+        <p className='cursor-pointer' onClick={handleRemoveClick}>Remove</p>
       </div>
       <div className="flex flex-col">
         <input
@@ -34,6 +60,9 @@ const FormLink = ({ ranking, link, placeholderLink, updateLink, removeLink }: Fo
       </div>
     </div>
   );
+  
 };
+
+
 
 export default FormLink;

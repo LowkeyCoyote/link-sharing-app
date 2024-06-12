@@ -48,7 +48,6 @@ const FormUpdateProfile = () => {
         image: userInfo.url,
       });
  
-
       setImagePreview(userInfo.url);
       setIsLoading(false);
     }
@@ -76,7 +75,9 @@ const FormUpdateProfile = () => {
           setSelectedImage(file);
           setImagePreview(imageUrl);
         } else {
-          toast.warning('Image width and height must be inferior to 1024 pixel');
+          toast.warning('Image width and height must be inferior to 1024 pixel', {
+            position : 'bottom-right'
+          });
         }
       };
       img.src = imageUrl;
@@ -118,7 +119,7 @@ const FormUpdateProfile = () => {
 
   return (
     <div>
-      <div className="sm:p-6 rounded-lg bg-white">
+      <div className="rounded-lg bg-white">
         <h1 className="pb-2">Profile Details</h1>
         <p className="pb-10">Add your details to create a personal touch to your profile.</p>
 

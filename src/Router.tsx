@@ -3,7 +3,7 @@ import SignInPage from '@pages/SignInPage';
 import SignUpPage from '@pages/SignUpPage';
 import HomePage from '@pages/HomePage';
 import PreviewPage from '@pages/PreviewPage';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUser, getDemoUser } from '@redux/authSlice';
 import { AppDispatch } from '@redux/store';
