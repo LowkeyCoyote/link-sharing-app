@@ -20,8 +20,6 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
     handleChangeTab(e.currentTarget.value);
   };
 
-
-
   let isMobile = useIsMobile();
 
   return (

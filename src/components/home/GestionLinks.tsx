@@ -19,9 +19,8 @@ const GestionLinks = () => {
   });
 
   const sensors = useSensors(mouseSensor);
-
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
-  const isDemo = useSelector((state : any) => state.authSlice.isDemo)
+  const isDemo = useSelector((state : any) => state.authSlice.isDemo);
   const dispatch = useDispatch<AppDispatch>();
 
   const [links, setLinks] = useState<LinkUserWithId[]>([]);
@@ -33,14 +32,13 @@ const GestionLinks = () => {
       });
       setLinks(linksUserWithId);
     }
-  }, [userInfo]);
+  }, []);
 
   const addNewLink = () => {
     if (links.length < 5) {
       for (let i = 0; i < socialInfosArray.length; i++) {
         const socialPlatform = socialInfosArray[i].platform;
         const exists = links.some((link) => link.platform === socialPlatform);
-
         if (!exists) {
           let newLink = { platform: socialPlatform, url: '', id: links.length + 1 };
           dispatch(modifyLinks([...links, newLink]));
@@ -66,14 +64,11 @@ const GestionLinks = () => {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
-      setLinks((links) => {
-        const oldIndex = links.findIndex((link) => link.id === active.id);
-        const newIndex = links.findIndex((link) => link.id === over.id);
-        dispatch(
-          modifyLinks(arrayMove(links, oldIndex, newIndex).map((link) => ({ platform: link.platform, link: link.url })))
-        );
-        return arrayMove(links, oldIndex, newIndex);
-      });
+      const oldIndex = links.findIndex((link) => link.id === active.id);
+      const newIndex = links.findIndex((link) => link.id === over.id);
+      const newLinks = arrayMove(links, oldIndex, newIndex);
+      setLinks(newLinks);
+      dispatch(modifyLinks(newLinks.map((link) => ({ platform: link.platform, url: link.url }))));
     }
   };
 
@@ -91,16 +86,17 @@ const GestionLinks = () => {
           {' '}
           <DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
             <SortableContext items={links}>
-              <div className='max-h-[500px] overflow-y-auto'>
+              <div className='max-h-[510px] overflow-y-auto'>
                 {links.map((link, i) => (
                   <FormLink
                     id={link.id}
                     ranking={i}
-                    key={i}
+                    key={link.id}
                     link={link.url}
-                    updateLink={(newLink) => updateLink(i, newLink)}
+                    updateLink={(newLink) => updateLink(link.id - 1, newLink)}
                     removeLink={() => removeLink(i)}
                     placeholderLink={link.platform.split(' ').join('-').toLocaleLowerCase()}
+                    platform={link.platform}
                   />
                 ))}
               </div>
@@ -111,10 +107,7 @@ const GestionLinks = () => {
               variant={isDemo ? 'demo' : 'primary'}
               type="submit"
               className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto"
-            >
-              Save
-              {isDemo && <p className=" font-thin text-[10px]">Not available on demo</p>}
-            </Button>
+            >Save{isDemo && <p className=" font-thin text-[10px]">Not available on demo</p>}</Button>
           </div>
         </>
       )}

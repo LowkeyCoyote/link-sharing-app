@@ -18,7 +18,7 @@ export type UpdateFormType = {
 
 export type LinksInformation = {
   platform: string;
-  link: string;
+  url: string;
 };
 
 export type LinkTabInformation = {

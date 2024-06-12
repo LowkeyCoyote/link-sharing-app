@@ -26,19 +26,17 @@ const MockupLinks = () => {
       });
       setLinks(linksUserWithId);
     }
-  }, [userInfo]);
+  }, []);
 
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {
-      setLinks((links) => {
-        const oldIndex = links.findIndex((link) => link.id === active.id);
-        const newIndex = links.findIndex((link) => link.id === over.id);
-        arrayMove(links, oldIndex, newIndex).map((link) => console.log(link))
-        dispatch(modifyLinks(arrayMove(links, oldIndex, newIndex).map((link) => ({ platform: link.platform, link : link.url  }))))
-        return arrayMove(links, oldIndex, newIndex);
-      });
+      const oldIndex = links.findIndex((link) => link.id === active.id);
+      const newIndex = links.findIndex((link) => link.id === over.id);
+      const newLinks = arrayMove(links, oldIndex, newIndex);
+      setLinks(newLinks);
+      dispatch(modifyLinks(newLinks.map((link) => ({ platform: link.platform, url: link.url }))));
     }
   };
 

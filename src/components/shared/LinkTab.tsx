@@ -6,11 +6,12 @@ import { CSS } from '@dnd-kit/utilities';
 interface LinkTabProps {
   platform: string;
   id: number;
+  link ?: string;
 }
 
 const LinkTab = ({ platform, id }: LinkTabProps) => {
+  
   const tab = socialInfosArray.find((e) => e.platform.toLowerCase() === platform.toLowerCase());
-
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const style = {
