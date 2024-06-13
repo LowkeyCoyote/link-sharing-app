@@ -7,7 +7,7 @@ import Button from '@components/shared/ui/Button';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '@redux/authSlice';
+import { registerUser } from '@redux/userSlice';
 import { AppDispatch } from '@redux/store';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';

@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import { LinkUser, LinkUserWithId } from 'src/types/types';
-import { modifyLinks } from '@redux/authSlice';
+import { LinkUser } from 'src/types/types';
+import { modifyLinks } from '@redux/userSlice';
 
 
 
@@ -17,16 +17,13 @@ const MockupLinks = () => {
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [links, setLinks] = useState<LinkUserWithId[]>([]);
+  const [links, setLinks] = useState<LinkUser[]>([]);
 
   useEffect(() => {
     if (userInfo && userInfo.links) {
-      const linksUserWithId = userInfo.links.map((link: LinkUser, index: number) => {
-        return { ...link, id: index + 1 };
-      });
-      setLinks(linksUserWithId);
-    }
-  }, []);
+      setLinks(userInfo.links);
+    }    
+  }, [userInfo]);
 
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -36,7 +33,7 @@ const MockupLinks = () => {
       const newIndex = links.findIndex((link) => link.id === over.id);
       const newLinks = arrayMove(links, oldIndex, newIndex);
       setLinks(newLinks);
-      dispatch(modifyLinks(newLinks.map((link) => ({ platform: link.platform, url: link.url }))));
+      dispatch(modifyLinks(newLinks.map((link) => ({ platform: link.platform, url: link.url, id : link.id }))));
     }
   };
 

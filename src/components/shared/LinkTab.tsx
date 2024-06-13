@@ -30,7 +30,7 @@ const LinkTab = ({ platform, id }: LinkTabProps) => {
     >
       <div className="flex flex-row">
         <img
-          src={iconMapping[platform]}
+          src={iconMapping[platform.toLowerCase()]}
           className={`${tab?.textGrey ? `` : 'icon-to-white '} mr-2 w-[20px] h-[20px]`}
           alt=""
         />

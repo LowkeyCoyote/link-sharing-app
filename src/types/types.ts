@@ -45,10 +45,6 @@ export type User = {
 export type LinkUser = {
   platform: string;
   url: string;
+  id : number;
 };
 
-export type LinkUserWithId = {
-  platform: string;
-  url: string;
-  id: number;
-};

@@ -14,9 +14,9 @@ const demoUser = {
   firstname : "John",
   lastname : "Appleseed",
   links : [
-    {platform : 'GitHub', url : 'hello'},
-    {platform : 'CodeWars', url : 'hello'},
-    {platform : 'Twitch', url : 'hello'},
+    {platform : 'GitHub', url : 'hello', id : 1},
+    {platform : 'CodeWars', url : 'hello', id : 2},
+    {platform : 'Twitch', url : 'hello', id : 3},
   ]
 }
 
@@ -62,7 +62,8 @@ export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, 
 export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (userData: FormData, thunkAPI) => {
   try {
     const token = localStorage.getItem('token') ?? '';
-    const response = await axios.put('https://link-sharing.joska-gyuricza.fr/api/users', userData, {
+    
+    const response = await axios.put('https://link-sharing.joska-gyuricza.fr/ai/users', userData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
@@ -89,6 +90,7 @@ const authSlice = createSlice({
     },
     modifyLinks: (state : any, action) => {
       state.currentUser = {...state.currentUser, links : action.payload}
+      console.log(state.currentUser)
     }
   },
   extraReducers: (builder) => {

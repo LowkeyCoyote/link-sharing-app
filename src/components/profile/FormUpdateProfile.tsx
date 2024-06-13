@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
-import { getCurrentUser, updateCurrentUser } from '@redux/authSlice';
+import { getCurrentUser, updateCurrentUser } from '@redux/userSlice';
 import { AppDispatch } from '@redux/store';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';

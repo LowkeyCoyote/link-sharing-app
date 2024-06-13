@@ -6,10 +6,10 @@ import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@redux/store';
-import { loginUser } from '@redux/authSlice';
+import { loginUser } from '@redux/userSlice';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
-import { getDemoUser } from '@redux/authSlice';
+import { getDemoUser } from '@redux/userSlice';
 
 const SignIn = () => {
 

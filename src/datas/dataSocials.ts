@@ -40,19 +40,96 @@ export const socialInfosArray : socialInfosType[] = [
 ]
 
 export const iconMapping : any  = {
-    GitHub: iconGitHub,
-    CodePen: iconCodePen,
-    CodeWars: iconCodeWars,
-    DevTo: iconDevTo,
-    FreeCodeCamp: iconFreeCodeCamp,
-    FrontEndMentor: iconFrontEndMentor,
-    GitLab: iconGitLab,
-    Hashnode: iconHashnode,
-    Linkedin: iconLinkedin,
-    StackOverflow: iconStackOverflow,
-    Twitch: iconTwitch,
-    Twitter: iconTwitter,
-    Youtube: iconYoutube,
-    FaceBook: iconFaceBook,
+    github: iconGitHub,
+    codepen: iconCodePen,
+    codewars: iconCodeWars,
+    devto: iconDevTo,
+    freecodecamp: iconFreeCodeCamp,
+    frontendmentor: iconFrontEndMentor,
+    gitlab: iconGitLab,
+    hashnode: iconHashnode,
+    linkedin: iconLinkedin,
+    stackoverflow: iconStackOverflow,
+    twitch: iconTwitch,
+    twitter: iconTwitter,
+    youtube: iconYoutube,
+    facebook: iconFaceBook,
   };
+
+  export type OptionsType = {
+    value : string;
+    text : string;
+    icon : string;
+  }
+
+
+  export const SelectSocialValues : OptionsType[] = [
+        {
+            value : "Github",
+            text : 'Github',
+            icon : (iconGitHub)
+        },
+        {
+            value : "CodeWars",
+            text : 'CodeWars',
+            icon : iconCodeWars
+        },
+        {
+            value : "Twitch",
+            text : 'Twitch',
+            icon : iconTwitch
+        },
+        {
+            value : "Twitter",
+            text : 'Twitter',
+            icon : iconTwitter
+        },
+        {
+            value : "FrontEndMentor",
+            text : 'FrontEndMentor',
+            icon : iconFrontEndMentor
+        },
+        {
+            value : "Linkedin",
+            text : 'Linkedin',
+            icon : iconLinkedin
+        },
+        {
+            value : "Youtube",
+            text : 'Youtube',
+            icon : iconYoutube
+        },
+        {
+            value : "Facebook",
+            text : 'Facebook',
+            icon : iconFaceBook
+        },
+        {
+            value : "DevTo",
+            text : 'DevTo',
+            icon : iconDevTo
+        },
+             {
+            value : "FreeCodeCamp",
+            text : 'FreeCodeCamp',
+            icon : iconFreeCodeCamp
+        },
+        {
+            value : "GitLab",
+            text : 'GitLab',
+            icon : iconGitLab
+        },
+              {
+            value : "HashNode",
+            text : 'HashNode',
+            icon : iconHashnode
+        },
+        {
+            value : "StackOverflow",
+            text : 'StackOverflow',
+            icon : iconStackOverflow
+        },
+        
+        
+  ]
   
