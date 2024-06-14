@@ -10,21 +10,22 @@ import { socialInfosArray } from '../../datas/dataSocials';
 import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import {  modifyLinks, updateCurrentUser } from '@redux/userSlice';
+import { modifyLinks, updateCurrentUser } from '@redux/userSlice';
 import { toast } from 'react-toastify';
 import useIsTablet from '@hooks/useIsTablet';
 
-
 const GestionLinks = () => {
-  
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10,
     },
   });
-  const touchSensor = useSensor(TouchSensor, {activationConstraint: {
-    distance : 1
-  }})
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 100,
+      tolerance: 10,
+    },
+  });
 
   const sensors = useIsTablet() ? useSensors(touchSensor) : useSensors(mouseSensor);
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
@@ -88,11 +89,11 @@ const GestionLinks = () => {
   };
 
   const onSubmit = () => {
-    const formData = new FormData()
+    const formData = new FormData();
     formData.append(`link`, JSON.stringify(links));
-    dispatch(updateCurrentUser(formData))
+    dispatch(updateCurrentUser(formData));
     toast.success('Your links has been modified');
-  }
+  };
 
   return (
     <section>
@@ -106,9 +107,14 @@ const GestionLinks = () => {
       ) : (
         <>
           {' '}
-          <DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
+          <DndContext
+            sensors={sensors}
+            modifiers={[restrictToVerticalAxis]}
+            onDragEnd={handleDragEnd}
+          >
             <SortableContext items={links}>
-              <div className="max-h-[510px] min-h-[510px] overflow-y-auto">
+              <div className="max-h-[510px] min-h-[510px] overflow-y-auto"
+              >
                 {links.map((link, i) => (
                   <FormLink
                     id={link.id}

@@ -15,6 +15,7 @@ type FormLinkProps = {
   removeLink: () => void;
   id: number;
   platform: string;
+
 };
 
 const FormLink = ({
@@ -31,6 +32,7 @@ const FormLink = ({
   const [selectedPlatform, setSelectedPlatform] = useState(platform);
   const [touched, setIsTouched] = useState(false);
   const [validURL, setValidURL] = useState(true);
+  
 
   useEffect(() => setSelectedPlatform(platform), [platform]);
 
@@ -78,7 +80,8 @@ const FormLink = ({
 
   return (
     <div
-      className="w-full bg-light-grey rounded-lg p-5 mb-6 sm:touch-none"
+    
+      className="w-full bg-light-grey rounded-lg p-5 mb-6"
       ref={setNodeRef}
       {...attributes}
       {...listeners}

@@ -9,9 +9,10 @@ interface ActionButtonsProps {
 }
 
 const FooterHome = ({  onSubmit, isDemo, disableSubmit = false } : ActionButtonsProps) => {
+    const logout = useLogout()
     return (
       <div className="border-t border-border justify-between flex -px-10 self-end sm:flex-col-reverse">
-        <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={useLogout}>
+        <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={logout}>
           Logout
         </Button>
         <Button

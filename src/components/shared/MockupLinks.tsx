@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '@redux/store';
-import demoProfile from '@assets/shared/demo-profile.png';
+import placeholderImg from "@assets/shared/placeholder-img.png"
 import LinkTab from '@components/shared/LinkTab';
 import { useEffect, useState } from 'react';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
@@ -42,7 +42,7 @@ const MockupLinks = () => {
     <div className="relative h-[631px] w-[307px] bg-illustration-mockup-links bg-no-repeat flex flex-col items-center my-[101px]">
       <div
         className="w-24 h-24 rounded-full bg-center bg-no-repeat bg-cover mt-16"
-        style={{ backgroundImage: `url(${isDemo ? demoProfile : userInfo.url})` }}
+        style={{ backgroundImage: `url(${isDemo ? placeholderImg : userInfo.url})` }}
       ></div>
       <p className="text-[18px] text-dark-grey mt-5 bg-white w-[240px] text-center">
         {userInfo.firstname} {userInfo.lastname}
