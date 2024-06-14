@@ -44,9 +44,9 @@ const SignIn = () => {
   };
 
   return (
-    <div className='w-[476px] sm:w-[311px]'>
+    <div className='w-[476px] sm:w-[311px] sm:mx-auto'>
       <img src={logoDevlinksLarge} alt="devlinks" className="pb-12" />
-      <div className="bg-white rounded-xl text-left p-10">
+      <div className="bg-white rounded-xl text-left p-10 sm:p-0">
         <h1 className="pb-2">Login</h1>
         <p className="pb-10">Add your details below to get back into the app</p>
         <form onSubmit={handleSubmit(onSubmit)}>

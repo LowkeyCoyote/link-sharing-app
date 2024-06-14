@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
-import { getCurrentUser, updateCurrentUser } from '@redux/userSlice';
+import { getCurrentUser, logout, updateCurrentUser } from '@redux/userSlice';
 import { AppDispatch } from '@redux/store';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,13 +47,12 @@ const FormUpdateProfile = () => {
         email: userInfo.email,
         image: userInfo.url,
       });
- 
+
       setImagePreview(userInfo.url);
       setIsLoading(false);
-    }
-    else{
-      setImagePreview(demoProfile)
-      setIsLoading(false)
+    } else {
+      setImagePreview(demoProfile);
+      setIsLoading(false);
     }
     setIsLoading(false);
   }, [userInfo, reset]);
@@ -76,7 +75,7 @@ const FormUpdateProfile = () => {
           setImagePreview(imageUrl);
         } else {
           toast.warning('Image width and height must be inferior to 1024 pixel', {
-            position : 'bottom-right'
+            position: 'bottom-right',
           });
         }
       };
@@ -226,14 +225,17 @@ const FormUpdateProfile = () => {
               />
             </div>
           </div>
-          <div className="border-t border-border justify-end flex -px-10 self-end">
+          <div className="border-t border-border justify-between flex -px-10 self-end sm:flex-col-reverse">
+            <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={() => dispatch(logout())}>
+              Logout
+            </Button>
             <Button
               variant={isDemo ? 'demo' : 'primary'}
               type="submit"
-              className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto"
+              className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto align-middle"
             >
               Save
-              {isDemo && <p className=" font-thin text-[10px]">Not available on demo</p>}
+              {isDemo && <span className=" font-thin text-[12px] ml-3">( Not available on demo ) </span>}
             </Button>
           </div>
         </form>

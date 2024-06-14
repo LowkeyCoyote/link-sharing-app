@@ -23,7 +23,7 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
   let isMobile = useIsMobile();
 
   return (
-    <div className="flex items-center justify-between m-6 p-4 bg-white sm:m-4 sm:pr-4 sm:pl-6">
+    <div className="flex items-center justify-between m-6 p-4 bg-white sm:m-4 sm:pr-4 sm:pl-6 sm:mb-6 sm:mx-0 sm:mt-0">
       <img src={isMobile ? logoDevLinksSmall : logoDevlinksLarge} alt="devlinks" className="sm:h-[32px] sm:w-[32px]" />
 
       <nav>

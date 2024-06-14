@@ -10,8 +10,6 @@ import { LinkUser } from 'src/types/types';
 import { modifyLinks } from '@redux/userSlice';
 
 
-
-
 const MockupLinks = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
@@ -33,7 +31,7 @@ const MockupLinks = () => {
       const newIndex = links.findIndex((link) => link.id === over.id);
       const newLinks = arrayMove(links, oldIndex, newIndex);
       setLinks(newLinks);
-      dispatch(modifyLinks(newLinks.map((link) => ({ platform: link.platform, url: link.url, id : link.id }))));
+      dispatch(modifyLinks(newLinks.map((link) => ({ ...link, id : link.id }))));
     }
   };
 

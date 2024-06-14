@@ -9,7 +9,7 @@ import { socialInfosArray } from '../../datas/dataSocials';
 import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import { modifyLinks, updateCurrentUser } from '@redux/userSlice';
+import { logout, modifyLinks, updateCurrentUser } from '@redux/userSlice';
 
 const GestionLinks = () => {
   const mouseSensor = useSensor(MouseSensor, {
@@ -64,7 +64,7 @@ const GestionLinks = () => {
   const updatePlatform = (indexToUpdate: number, newPlatform: string) => {
     const updatedLinks = links.map((link, index) => {
       if (index === indexToUpdate) {
-        return { ...link, platform: newPlatform.toLowerCase() };
+        return { ...link, platform: newPlatform };
       }
       return link;
     });
@@ -77,9 +77,9 @@ const GestionLinks = () => {
     if (over && active.id !== over.id) {
       const oldIndex = links.findIndex((link) => link.id === active.id);
       const newIndex = links.findIndex((link) => link.id === over.id);
-      const newLinks = arrayMove(links, oldIndex, newIndex);
-      setLinks(newLinks);
-      dispatch(modifyLinks(newLinks));
+      const updatedLinks = arrayMove(links, oldIndex, newIndex);
+      setLinks(updatedLinks);
+      dispatch(modifyLinks(updatedLinks));
     }
   };
 
@@ -123,14 +123,19 @@ const GestionLinks = () => {
               </div>
             </SortableContext>
           </DndContext>
-          <div className="border-t border-border justify-end flex -px-10 self-end">
+          <div className="border-t border-border justify-between flex -px-10 self-end sm:flex-col-reverse">
+            <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={() => dispatch(logout())}>
+              Logout
+            </Button>
             <Button
               variant={isDemo ? 'demo' : 'primary'}
               type="submit"
-              className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto"
+              className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto align-middle "
               onClick={() => onSubmit(userInfo)}
+
             >
-              Save{isDemo && <p className=" font-thin text-[10px]">Not available on demo</p>}
+              Save
+              {isDemo && <span className=" font-thin text-[12px] ml-3">( Not available on demo )</span>}
             </Button>
           </div>
         </>

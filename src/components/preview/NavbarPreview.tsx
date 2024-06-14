@@ -17,16 +17,16 @@ const NavbarPreview = () => {
   }
 
   return (
-    <div className="mx-6 mb-20 md:mb-24  py-4 px-6 bg-white rounded-lg flex items-center justify-between sm:mb-16 sm:rounded-none">
-      <Button variant={'secondary'} className="px-7" link="/home">
+    <div className="mx-6 mb-20 md:mb-24  py-4 px-6 bg-white rounded-lg flex items-center justify-between sm:mb-16 sm:mx-0 sm:gap-4 sm:rounded-none">
+      <Button variant={'secondary'} className="px-7 sm:px-0  sm:w-full" link="/home">
         Back to Editor
       </Button>
       <Button 
       variant={isDemo ? 'demo' : 'primary'}
-      className="px-7 border-2 border-purple"
+      className="px-7  border-2 border-purple outline-2 outline-purple sm:w-full sm:px-0 align-middle"
       onClick={!isDemo ? copyLinksToClickoard : undefined }
       >Share Link {isDemo && (
-        <p className=' font-thin text-[10px]'>Not available on demo</p>
+        <span className=' font-thin text-[12px]'>( Not in on demo )</span>
       )}</Button>
     </div>
   );
