@@ -7,8 +7,6 @@ const NavbarPreview = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const isDemo = useSelector((state : any) => state.authSlice.isDemo)
 
-  console.log(isDemo);  
-
   const copyLinksToClickoard = () => {
     navigator.clipboard.writeText(`https://lowkey-coyote-link-sharing-app.netlify.app/link/${userInfo.ranking}`)
     toast.success('The link has been copied to your clipboard!', {
@@ -23,7 +21,7 @@ const NavbarPreview = () => {
       </Button>
       <Button 
       variant={isDemo ? 'demo' : 'primary'}
-      className="px-7  border-2 border-purple outline-2 outline-purple sm:w-full sm:px-0 align-middle"
+      className="px-7  border-2 border-purple hover:border-light-purple sm:w-full sm:px-0 align-middle"
       onClick={!isDemo ? copyLinksToClickoard : undefined }
       >Share Link {isDemo && (
         <span className=' font-thin text-[12px]'>( Not in on demo )</span>

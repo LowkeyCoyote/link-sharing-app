@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Button from '@components/shared/ui/Button';
 import FormField from '@components/shared/ui/FormField';
-import { getCurrentUser, logout, updateCurrentUser } from '@redux/userSlice';
+import { getCurrentUser, updateCurrentUser } from '@redux/userSlice';
 import { AppDispatch } from '@redux/store';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,16 +11,18 @@ import iconUploadImage from '@assets/shared/icon/icon-upload-image.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import demoProfile from '@assets/shared/demo-profile.png';
+import { useNavigate } from 'react-router-dom';
 
 const FormUpdateProfile = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
-
   const dispatch = useDispatch<AppDispatch>();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -45,8 +47,7 @@ const FormUpdateProfile = () => {
         firstname: userInfo.firstname,
         lastname: userInfo.lastname,
         email: userInfo.email,
-        image: userInfo.url,
-      });
+        image: userInfo.url      });
 
       setImagePreview(userInfo.url);
       setIsLoading(false);
@@ -111,6 +112,13 @@ const FormUpdateProfile = () => {
       });
     }
   };
+
+  const logout = () => {
+    localStorage.removeItem('demo')
+    localStorage.removeItem('token')
+    navigate('/signin')
+}
+
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -177,7 +185,7 @@ const FormUpdateProfile = () => {
                 register={register}
                 className={`mb-3 w-[423px] md:w-[344px] sm:w-full ${errors.firstname ? '!border-[#FF3939] !shadow-none' : ''}`}
                 error={errors.firstname && 'empty'}
-                validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý][a-zA-ZÀ-ÖØ-Ýà-öø-ý-]{1,49}$/}
+                validationPattern={/^[a-zA-ZÀ-ÖØ-Ýà-öø-ý][a-zA-ZÀ-ÖØ-Ýà-öø-ý-]{1,49}$/}
                 labelVisible={false}
                 profilePage={true}
               />
@@ -199,7 +207,7 @@ const FormUpdateProfile = () => {
                 register={register}
                 className={`mb-3 w-[423px] md:w-[344px] sm:w-full ${errors.lastname ? '!border-[#FF3939] !shadow-none' : ''}`}
                 error={errors.lastname && 'wrong format'}
-                validationPattern={/^[A-ZÀ-ÖØ-Ýà-öø-ý][a-zA-ZÀ-ÖØ-Ýà-öø-ý'-]{1,49}$/}
+                validationPattern={/^[a-zA-ZÀ-ÖØ-Ýà-öø-ý][a-zA-ZÀ-ÖØ-Ýà-öø-ý'-]{1,49}$/}
                 labelVisible={false}
                 profilePage={true}
               />
@@ -226,7 +234,7 @@ const FormUpdateProfile = () => {
             </div>
           </div>
           <div className="border-t border-border justify-between flex -px-10 self-end sm:flex-col-reverse">
-            <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={() => dispatch(logout())}>
+            <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={logout}>
               Logout
             </Button>
             <Button

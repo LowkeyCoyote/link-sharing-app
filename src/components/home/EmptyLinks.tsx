@@ -1,7 +1,16 @@
 import illustrationEmptyLinks from '@assets/shared/illustration-empty.svg';
 import Button from '@components/shared/ui/Button';
+import { useNavigate } from 'react-router-dom';
 
 const EmptyLinks = () => {
+  const navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem('demo')
+    localStorage.removeItem('token')
+    navigate('/signin')
+}
+
   return (
     <section>
       <div className="flex flex-col items-center bg-light-grey rounded-lg pt-16 pb-16 mb-10">
@@ -13,11 +22,16 @@ const EmptyLinks = () => {
         </p>
       </div>
 
-      <div className="border-t border-border justify-end flex -px-10 self-end">
-        <Button type="submit" className="px-7 mr-10 mt-6 pointer-events-none bg-purple-hover">
-          Save
-        </Button>
-      </div>
+
+        <div className="border-t border-border justify-between flex -px-10 self-end sm:flex-col-reverse">
+          <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={logout}>
+            Logout
+          </Button>
+          <Button type="submit" className="px-7 mr-10 mt-6 pointer-events-none bg-purple-hover">
+            Save
+          </Button>
+        </div>
+
     </section>
   );
 };
