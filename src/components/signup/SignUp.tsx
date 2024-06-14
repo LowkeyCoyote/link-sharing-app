@@ -28,23 +28,18 @@ const SignUp = () => {
   const onSubmit = async (data: SignUpFormType) => {
     const { email, password, validatePassword } = data;
     if (password !== validatePassword) {
-      toast.error('Passwords do not match', {
-        position: 'bottom-right',
-      });
+      toast.error('Passwords do not match');
       return;
     }
     try {
       const action = await dispatch(registerUser({ email, password }));
       unwrapResult(action);
       toast.success('Your account has been created. Click here to sign in', {
-        position: 'bottom-right',
         onClick: () => navigate('/signin'),
         style: { cursor: 'pointer' },
       });
     } catch (error) {
-      toast.error('An error occurred during account creation', {
-        position: 'bottom-right',
-      });
+      toast.error('An error occurred during account creation');
     }
   };
 

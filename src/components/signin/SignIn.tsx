@@ -38,9 +38,7 @@ const SignIn = () => {
         localStorage.setItem("token", action.payload.token);
         navigate('/home')
       })
-      .catch(() => toast.error('Invalid Credentials', {
-        position : 'bottom-right'
-      }))
+      .catch(() => toast.error('Invalid Credentials'))
   };
 
   return (

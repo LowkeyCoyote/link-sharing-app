@@ -1,5 +1,4 @@
-import { useRef, useState, useEffect, ChangeEvent } from 'react';
-import Button from '@components/shared/ui/Button';
+import {  useEffect } from 'react';
 import FormField from '@components/shared/ui/FormField';
 import { getCurrentUser, updateCurrentUser } from '@redux/userSlice';
 import { AppDispatch } from '@redux/store';
@@ -10,19 +9,14 @@ import { UpdateFormType } from 'src/types/types';
 import iconUploadImage from '@assets/shared/icon/icon-upload-image.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
-import demoProfile from '@assets/shared/demo-profile.png';
-import { useNavigate } from 'react-router-dom';
+import useImageUpload from '@hooks/useImageUpload';
+import FooterHome from '@components/home/FooterHome';
 
 const FormUpdateProfile = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
   const dispatch = useDispatch<AppDispatch>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const navigate = useNavigate()
+  const { selectedImage, imagePreview, fileInputRef, handleDivClick, handleImageChange } = useImageUpload(userInfo?.url);
 
   const {
     register,
@@ -47,42 +41,17 @@ const FormUpdateProfile = () => {
         firstname: userInfo.firstname,
         lastname: userInfo.lastname,
         email: userInfo.email,
-        image: userInfo.url      });
-
-      setImagePreview(userInfo.url);
-      setIsLoading(false);
+        image: userInfo.url,
+      });
     } else {
-      setImagePreview(demoProfile);
-      setIsLoading(false);
+      reset({
+        firstname: '',
+        lastname: '',
+        email: '',
+        image: undefined,
+      });
     }
-    setIsLoading(false);
   }, [userInfo, reset]);
-
-  const handleDivClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = function () {
-        const image = this as HTMLImageElement;
-        if (image.width <= 1024 && image.height <= 1024) {
-          setSelectedImage(file);
-          setImagePreview(imageUrl);
-        } else {
-          toast.warning('Image width and height must be inferior to 1024 pixel', {
-            position: 'bottom-right',
-          });
-        }
-      };
-      img.src = imageUrl;
-    }
-  };
 
   const onSubmit = async (data: UpdateFormType) => {
     if (isDemo) {
@@ -103,26 +72,11 @@ const FormUpdateProfile = () => {
       unwrapResult(actionResult);
       await dispatch(getCurrentUser());
 
-      toast.success('Your profile has been modified', {
-        position: 'bottom-right',
-      });
+      toast.success('Your profile has been modified');
     } catch (error) {
-      toast.error('An error occurred while updating profile', {
-        position: 'bottom-right',
-      });
+      toast.error('An error occurred while updating profile');
     }
   };
-
-  const logout = () => {
-    localStorage.removeItem('demo')
-    localStorage.removeItem('token')
-    navigate('/signin')
-}
-
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
@@ -233,19 +187,7 @@ const FormUpdateProfile = () => {
               />
             </div>
           </div>
-          <div className="border-t border-border justify-between flex -px-10 self-end sm:flex-col-reverse">
-            <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={logout}>
-              Logout
-            </Button>
-            <Button
-              variant={isDemo ? 'demo' : 'primary'}
-              type="submit"
-              className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto align-middle"
-            >
-              Save
-              {isDemo && <span className=" font-thin text-[12px] ml-3">( Not available on demo ) </span>}
-            </Button>
-          </div>
+          <FooterHome isDemo={isDemo} onSubmit={undefined} disableSubmit={false} />
         </form>
       </div>
     </div>

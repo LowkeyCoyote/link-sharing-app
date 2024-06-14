@@ -5,25 +5,28 @@ import Button from '@components/shared/ui/Button';
 import { LinkUser } from 'src/types/types';
 import EmptyLinks from './EmptyLinks';
 import FormLink from './FormLink';
+import FooterHome from './FooterHome';
 import { socialInfosArray } from '../../datas/dataSocials';
-import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {  modifyLinks, updateCurrentUser } from '@redux/userSlice';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useIsTablet from '@hooks/useIsTablet';
 
 
 const GestionLinks = () => {
-  const navigate = useNavigate()
-
+  
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10,
     },
   });
+  const touchSensor = useSensor(TouchSensor, {activationConstraint: {
+    distance : 1
+  }})
 
-  const sensors = useSensors(mouseSensor);
+  const sensors = useIsTablet() ? useSensors(touchSensor) : useSensors(mouseSensor);
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
   const dispatch = useDispatch<AppDispatch>();
@@ -88,17 +91,8 @@ const GestionLinks = () => {
     const formData = new FormData()
     formData.append(`link`, JSON.stringify(links));
     dispatch(updateCurrentUser(formData))
-    toast.success('Your links has been modified', {
-      position: 'bottom-right',
-    });
+    toast.success('Your links has been modified');
   }
-
-  const logout = () => {
-    localStorage.removeItem('demo')
-    localStorage.removeItem('token')
-    navigate('/signin')
-}
-
 
   return (
     <section>
@@ -131,20 +125,7 @@ const GestionLinks = () => {
               </div>
             </SortableContext>
           </DndContext>
-          <div className="border-t border-border justify-between flex -px-10 self-end sm:flex-col-reverse">
-            <Button variant="logout" className="ml-10 px-6 py-3 mt-6 sm:w-auto sm:mt-10 sm:mx-auto" onClick={logout}>
-              Logout
-            </Button>
-            <Button
-              variant={isDemo ? 'demo' : 'primary'}
-              type="submit"
-              className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto align-middle "
-              onClick={() => onSubmit()}
-            >
-              Save
-              {isDemo && <span className=" font-thin text-[12px] ml-3">( Not available on demo )</span>}
-            </Button>
-          </div>
+          <FooterHome onSubmit={onSubmit} isDemo={isDemo} />
         </>
       )}
     </section>

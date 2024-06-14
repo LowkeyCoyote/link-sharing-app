@@ -78,7 +78,7 @@ const FormLink = ({
 
   return (
     <div
-      className="w-full bg-light-grey rounded-lg p-5 mb-6"
+      className="w-full bg-light-grey rounded-lg p-5 mb-6 sm:touch-none"
       ref={setNodeRef}
       {...attributes}
       {...listeners}
