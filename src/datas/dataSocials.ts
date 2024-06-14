@@ -60,7 +60,7 @@ export const iconMapping : any  = {
     value : string;
     text : string;
     icon : string;
-  }
+  } 
 
 
   export const SelectSocialValues : OptionsType[] = [

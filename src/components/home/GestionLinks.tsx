@@ -56,7 +56,7 @@ const GestionLinks = () => {
   };
 
   const updateLink = (index: number, newLink: string) => {
-    const updatedLinks = links.map((link, i) => (i === index + 1 ? { ...link, url: newLink } : link));
+    const updatedLinks = links.map((link, i) => (i === index ? { ...link, url: newLink } : link));
     dispatch(modifyLinks(updatedLinks));
     setLinks(updatedLinks);
   };
@@ -83,6 +83,15 @@ const GestionLinks = () => {
     }
   };
 
+  const onSubmit = (userInfo : any) => {
+    const formData = new FormData()
+    if (userInfo.links && userInfo.links.length > 0) {
+        formData.append(`link`, JSON.stringify(links));
+ 
+    }
+    dispatch(updateCurrentUser(formData))
+  }
+
   return (
     <section>
       <h1 className="mb-2">Customize your links</h1>
@@ -97,7 +106,7 @@ const GestionLinks = () => {
           {' '}
           <DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
             <SortableContext items={links}>
-              <div className="max-h-[510px] overflow-y-auto">
+              <div className="max-h-[510px] min-h-[510px] overflow-y-auto">
                 {links.map((link, i) => (
                   <FormLink
                     id={link.id}
@@ -119,7 +128,7 @@ const GestionLinks = () => {
               variant={isDemo ? 'demo' : 'primary'}
               type="submit"
               className="px-7 mr-10 mt-6 sm:w-full sm:mx-auto"
-              onClick={() => dispatch(updateCurrentUser(userInfo))}
+              onClick={() => onSubmit(userInfo)}
             >
               Save{isDemo && <p className=" font-thin text-[10px]">Not available on demo</p>}
             </Button>

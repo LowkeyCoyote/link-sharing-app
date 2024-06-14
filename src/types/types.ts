@@ -48,3 +48,11 @@ export type LinkUser = {
   id : number;
 };
 
+export type UserData =  {
+  lastname ?: string;
+  firstname?: string;
+  email?: string;
+  image ?: string | Blob
+  links?: LinkUser[];
+}
+

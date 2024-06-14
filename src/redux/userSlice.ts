@@ -63,7 +63,7 @@ export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (user
   try {
     const token = localStorage.getItem('token') ?? '';
     
-    const response = await axios.put('https://link-sharing.joska-gyuricza.fr/ai/users', userData, {
+    const response = await axios.put('https://link-sharing.joska-gyuricza.fr/api/users', userData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
