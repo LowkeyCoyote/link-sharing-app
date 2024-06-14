@@ -115,17 +115,17 @@ const GestionLinks = () => {
             <SortableContext items={links}>
               <div className="max-h-[510px] min-h-[510px] overflow-y-auto"
               >
-                {links.map((link, i) => (
+                {links.map(({id, url, platform}, i) => (
                   <FormLink
-                    id={link.id}
+                    id={id}
                     ranking={i}
-                    key={link.id}
-                    url={link.url}
+                    key={id}
+                    url={url}
                     updateLink={(newLink) => updateLink(i, newLink)}
                     updatePlatform={(newPlatform) => updatePlatform(i, newPlatform)}
                     removeLink={() => removeLink(i)}
-                    placeholderLink={link.platform.split(' ').join('-').toLocaleLowerCase()}
-                    platform={link.platform}
+                    placeholderLink={platform}
+                    platform={platform}
                   />
                 ))}
               </div>

@@ -6,7 +6,6 @@ import { LinkInfo } from 'src/types/types';
 
 const LinkShared = () => {
   const { id } = useParams();
-
   const [dataLinkShared, setDataLinkedShared] = useState<LinkInfo | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);

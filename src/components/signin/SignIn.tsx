@@ -89,7 +89,6 @@ const SignIn = () => {
             className='px-4 mt-6' 
             variant={'secondary'}
             onClick={setDemoInfo}
-            
             >
               Try our demo version ! 
             </Button>
