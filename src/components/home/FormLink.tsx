@@ -15,7 +15,6 @@ type FormLinkProps = {
   removeLink: () => void;
   id: number;
   platform: string;
-
 };
 
 const FormLink = ({

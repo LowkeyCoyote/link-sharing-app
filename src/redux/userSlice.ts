@@ -1,24 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SignInFormType, SignUpFormType } from 'src/types/types';
+import { demoUser } from '@datas/dataDemo';
 import axios from 'axios';
-
 
 const initialState = {
   currentUser : undefined,
   isLoading: false,
   isDemo : false
 };
-
-const demoUser = {
-  email : "email@example.com",
-  firstname : "John",
-  lastname : "Appleseed",
-  links : [
-    {platform : 'GitHub', url : 'https://github.com', id : 1},
-    {platform : 'CodeWars', url : 'https://www.codewars.com', id : 2},
-    {platform : 'Twitch', url : 'https://www.twitch.tv', id : 3},
-  ]
-}
 
 export const registerUser = createAsyncThunk('auth/register', async (userData: SignUpFormType, thunkAPI) => {
   try {

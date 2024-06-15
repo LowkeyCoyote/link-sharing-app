@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 const EmptyLinks = () => {
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
-
   return (
     <section>
       <div className="flex flex-col items-center bg-light-grey rounded-lg pt-16 pb-16 mb-10">
