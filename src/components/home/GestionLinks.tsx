@@ -5,36 +5,37 @@ import FooterHome from './FooterHome';
 import { DndContext } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-
 import { toast } from 'react-toastify';
 import useCustomSensors from '@hooks/useCustomSensor';
 import useLinkManagement from '@hooks/useLinkManagement';
-
+import { isValidUrl } from '@utils/isValidUrl';
 
 const GestionLinks = () => {
   const sensors = useCustomSensors();
-  const {
-    links,
-    isDemo,
-    addNewLink,
-    removeLink,
-    updateLink,
-    updatePlatform,
-    handleDragEnd,
-    updateCurrentUser
-  } = useLinkManagement();
-  
+  const { links, isDemo, addNewLink, removeLink, updateLink, updatePlatform, handleDragEnd, updateCurrentUser } =
+    useLinkManagement();
+
   const onSubmit = () => {
-    const formData = new FormData();
-    formData.append('link', JSON.stringify(links));
-    updateCurrentUser(formData);
-    toast.success('Your links have been modified');
+    const invalidLinks = links.filter((link) => !isValidUrl(link.url, link.platform));
+    console.log(invalidLinks);
+    if (invalidLinks.length > 0) {
+      toast.error('Please correct the invalid URLs before submitting.');
+      return;
+    } else {
+      const formData = new FormData();
+      formData.append('link', JSON.stringify(links));
+      updateCurrentUser(formData);
+      toast.success('Your links have been modified');
+    }
   };
 
   return (
     <section>
       <h1 className="mb-2">Customize your links</h1>
-      <p className="mb-10">Add/edit/remove links below and then share all your profiles with the world!</p>
+      <p className="mb-10">
+        Add/edit/remove links below and then share all your profiles with the world! <br />
+        You can drag and drop links to change their order
+      </p>
       <Button variant={'secondary'} className="w-full mb-6" onClick={addNewLink}>
         + Add new link
       </Button>
@@ -43,15 +44,10 @@ const GestionLinks = () => {
       ) : (
         <>
           {' '}
-          <DndContext
-            sensors={sensors}
-            modifiers={[restrictToVerticalAxis]}
-            onDragEnd={handleDragEnd}
-          >
+          <DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
             <SortableContext items={links}>
-              <div className="max-h-[510px] min-h-[510px] overflow-y-auto"
-              >
-                {links.map(({id, url, platform}, i) => (
+              <div className="max-h-[510px] min-h-[510px] overflow-y-auto">
+                {links.map(({ id, url, platform }, i) => (
                   <FormLink
                     id={id}
                     ranking={i}
@@ -67,7 +63,7 @@ const GestionLinks = () => {
               </div>
             </SortableContext>
           </DndContext>
-          <FooterHome onSubmit={onSubmit} isDemo={isDemo} />
+          <FooterHome onSubmit={onSubmit} isDemo={isDemo} disableSubmit={isDemo} />
         </>
       )}
     </section>

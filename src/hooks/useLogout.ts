@@ -3,7 +3,6 @@ import { AppDispatch } from '@redux/store';
 import {  useDispatch } from 'react-redux';
 import { logout } from '@redux/userSlice';
 
-
 const useLogout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>()

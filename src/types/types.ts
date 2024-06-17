@@ -1,3 +1,5 @@
+// Form Type
+
 export type SignInFormType = {
   email: string;
   password: string;
@@ -16,30 +18,12 @@ export type UpdateFormType = {
   email?: string;
 };
 
-export type LinksInformation = {
-  platform: string;
-  url: string;
-};
 
-export type LinkTabInformation = {
-  platform: string;
-  link: string;
-  id: number;
-};
 
-export type LinkInfo = {
+export type LinkInfoProfile = {
   email: string;
   firstname?: string;
   lastname?: string;
-  url?: string;
-};
-
-export type User = {
-  email: string;
-  firstname?: string;
-  lastname?: string;
-  url?: string;
-  links?: LinkTabInformation[];
 };
 
 export type LinkUser = {
@@ -54,5 +38,15 @@ export type UserData =  {
   email?: string;
   image ?: string | Blob
   links?: LinkUser[];
+  ranking ?: number;
+  id?: string;
+}
+
+// Redux User type 
+
+export type CurrentUserState = {
+  currentUser ?: UserData;
+  isDemo : boolean;
+  isLoading : boolean;
 }
 

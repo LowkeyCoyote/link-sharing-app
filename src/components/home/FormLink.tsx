@@ -1,10 +1,9 @@
 import iconDragAndDrop from '@assets/shared/icon/icon-drag-and-drop.svg';
-import { useEffect, useState } from 'react';
-import { ChangeEvent } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import Select, { SingleValue } from 'react-select';
+import Select from 'react-select';
 import { SelectSocialValues, OptionsType } from '@datas/dataSocials';
+import { useLinkForm } from '@hooks/useLinkForm';
 
 type FormLinkProps = {
   ranking: number;
@@ -27,40 +26,13 @@ const FormLink = ({
   id,
   platform,
 }: FormLinkProps) => {
-  const [linkValue, setLinkValue] = useState(url);
-  const [selectedPlatform, setSelectedPlatform] = useState(platform);
-  const [touched, setIsTouched] = useState(false);
-  const [validURL, setValidURL] = useState(true);
-  
-
-  useEffect(() => setSelectedPlatform(platform), [platform]);
-
-  const regexURL =
-    /  (https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?g;/;
-
-  const handleChangePlatform = (e: SingleValue<OptionsType>) => {
-    if (e) {
-      const newPlaform = e.value;
-      setSelectedPlatform(newPlaform);
-      updatePlatform(newPlaform);
-    }
-  };
-
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setLinkValue(newValue);
-    updateLink(newValue);
-    handleWrongURL(newValue);
-  };
-
-  const handleTouchedInput = () => {
-    setIsTouched(true);
-  };
-
-  const handleWrongURL = (url: string) => {
-    let isValid = regexURL.test(url) && url.includes(platform.split('-').join().toLowerCase()) && touched;
-    setValidURL(isValid);
-  };
+  const { linkValue, selectedPlatform, validURL, handleChangePlatform, handleChangeInput, handleTouchedInput } =
+    useLinkForm({
+      initialUrl: url,
+      initialPlatform: platform,
+      updateLink,
+      updatePlatform,
+    });
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
@@ -79,8 +51,7 @@ const FormLink = ({
 
   return (
     <div
-    
-      className="w-full bg-light-grey rounded-lg p-5 mb-6"
+      className="w-full bg-light-grey rounded-lg p-5 mb-6 !cursor-pointer"
       ref={setNodeRef}
       {...attributes}
       {...listeners}
@@ -106,7 +77,10 @@ const FormLink = ({
         onChange={handleChangePlatform}
         formatOptionLabel={formatOptionLabel}
       />
-      <p className="text-p-small text-dark-grey mb-1 font-medium">Link</p>
+      <div className='flex justify-between'>
+        <label htmlFor={platform} className={`text-p-small text-dark-grey mb-1 font-medium ${!validURL ? 'text-red' : ''}`}>Link</label>
+        {!validURL ? <p className='text-p-small text-red'>Please enter a <span className='capitalize'>{platform.toLowerCase()}</span> correct URL</p> : ''}
+      </div>
       <div className="flex flex-col">
         <input
           type="text"
@@ -114,7 +88,7 @@ const FormLink = ({
           onChange={handleChangeInput}
           onBlur={handleTouchedInput}
           className={`p-2 py-3 border rounded-lg ${!validURL ? 'border-red' : ''}`}
-          placeholder={`e.g. https://www.${placeholderLink}.com/johnappleseed`}
+          placeholder={`e.g. https://www.${placeholderLink.toLowerCase()}.com/johnappleseed`}
         />
       </div>
     </div>

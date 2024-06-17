@@ -2,7 +2,7 @@ import SignIn from '@components/signin/SignIn';
 
 const SignInPage = () => {
   return (
-    <section className="grid place-content-center min-h-screen sm:bg-white sm:place-content-normal">
+    <section className="grid place-content-center min-h-screen bg-[#fafafa] sm:bg-white sm:place-content-normal">
       <SignIn />
     </section>
   );

@@ -2,9 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SignInFormType, SignUpFormType } from 'src/types/types';
 import { demoUser } from '@datas/dataDemo';
 import axios from 'axios';
+import { CurrentUserState } from 'src/types/types';
 
-const initialState = {
-  currentUser : undefined,
+
+const initialState : CurrentUserState = {
+  currentUser  : undefined,
   isLoading: false,
   isDemo : false
 };
@@ -73,13 +75,13 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getDemoUser: (state : any) => {
+    getDemoUser: (state : CurrentUserState) => {
       state.isDemo = true
       state.currentUser = demoUser
     },
-    modifyLinks: (state : any, action) => {
+    modifyLinks: (state : CurrentUserState, action) => {
+      console.log(action.payload)
       state.currentUser = {...state.currentUser, links : action.payload}
-      console.log(state.currentUser)
     }
   },
   extraReducers: (builder) => {

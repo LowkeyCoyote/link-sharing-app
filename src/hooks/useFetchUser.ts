@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LinkInfo } from 'src/types/types';
+import { LinkInfoProfile } from 'src/types/types';
 
 const useFetchUser = (idUser: string | undefined) => {
-  const [dataLinkShared, setDataLinkedShared] = useState<LinkInfo | null>(null);
+  const [dataLinkShared, setDataLinkedShared] = useState<LinkInfoProfile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
 

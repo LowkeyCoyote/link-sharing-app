@@ -19,7 +19,7 @@ const FooterHome = ({  onSubmit, isDemo, disableSubmit = false } : ActionButtons
           variant={isDemo ? 'demo' : 'primary'}
           type="submit"
           disabled={disableSubmit}
-          className={`px-7 mr-10 mt-6 sm:w-full sm:mx-auto align-middle ${disableSubmit ? 'pointer-events-none bg-purple-hover' : ''}`}
+          className={`px-7 mr-10 mt-6 sm:w-full sm:mx-auto align-middle ${disableSubmit ? 'pointer-events-none bg-light-purple' : ''}`}
           onClick={onSubmit}
         >
           Save

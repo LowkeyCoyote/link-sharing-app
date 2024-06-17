@@ -2,7 +2,7 @@ import SignUp from '@components/signup/SignUp';
 
 const SignUpPage = () => {
   return (
-    <section className="grid place-content-center min-h-screen sm:bg-white sm:place-content-normal">
+    <section className="grid place-content-center min-h-screen bg-[#fafafa] sm:bg-white sm:place-content-normal">
       <SignUp />
     </section>
   );

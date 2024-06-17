@@ -14,7 +14,7 @@ const CardPreview = ({ userInfo }: CardPreviewProps) => {
     return <p>Loading ...</p>;
   }
   return (
-    <div className="rounded-3xl bg-white w-fit mx-auto px-14 py-12 flex flex-col items-center justify-center box-shadow-card"
+    <div className="rounded-3xl bg-white w-fit mx-auto px-14 py-12 flex flex-col items-center justify-center box-shadow-card sm:shadow-none"
 >
       {userInfo.url ? (
         <div

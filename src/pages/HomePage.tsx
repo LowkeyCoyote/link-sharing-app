@@ -11,7 +11,7 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div className='bg-[#fafafa]'>
       <Navbar handleChangeTab={handleTabSelectedChange} />
       <div className="flex px-6 gap-6 sm:px-4">
         <div className="bg-white flex justify-center w-[35%] rounded-xl md:hidden relative">

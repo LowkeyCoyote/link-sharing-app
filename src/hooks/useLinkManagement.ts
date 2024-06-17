@@ -41,6 +41,7 @@ const useLinkManagement = () => {
       .map((link, index) => {
         return { ...link, id: index + 1 };
       });
+      
     dispatch(modifyLinks(updatedLinks));
     setLinks(updatedLinks);
   };

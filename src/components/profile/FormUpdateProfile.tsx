@@ -186,7 +186,7 @@ const FormUpdateProfile = () => {
               />
             </div>
           </div>
-          <FooterHome isDemo={isDemo} onSubmit={undefined} disableSubmit={false} />
+          <FooterHome isDemo={isDemo} onSubmit={undefined} disableSubmit={isDemo} />
         </form>
       </div>
     </div>
