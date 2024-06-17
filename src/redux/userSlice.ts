@@ -78,6 +78,9 @@ const authSlice = createSlice({
       state.isDemo = true;
       state.currentUser = demoUser;
     },
+    loggoutDemoUser : (state : CurrentUserState) => {
+      state.isDemo = false;
+    },
     modifyLinks: (state: CurrentUserState, action) => {
       state.currentUser = { ...state.currentUser, links: action.payload };
     },
@@ -137,6 +140,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { getDemoUser, modifyLinks } = authSlice.actions;
+export const { getDemoUser, modifyLinks, loggoutDemoUser } = authSlice.actions;
 
 export default authSlice.reducer;
