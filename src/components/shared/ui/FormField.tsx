@@ -45,7 +45,7 @@ const FormField = ({
         placeholder={placeholder}
         maxLength={maxLength}
         className={twMerge(
-          `${icon ? `bg-${icon} bg-no-repeat  pl-11 text-dark-grey  ${error ? `!border-[#FF3939]` : ``}` : `px-4`}`,
+          `${icon ? `bg-${icon} bg-no-repeat pl-11 text-dark-grey ${error ? `!border-[#FF3939]` : ``}` : `px-4`}`,
           className
         )}
         id={name}

@@ -51,13 +51,13 @@ const FormLink = ({
 
   return (
     <div
-      className="w-full bg-light-grey rounded-lg p-5 mb-6 !cursor-pointer"
+      className="mb-6 w-full !cursor-pointer rounded-lg bg-light-grey p-5"
       ref={setNodeRef}
       {...attributes}
       {...listeners}
       style={style}
     >
-      <div className="flex justify-between items-center mb-3">
+      <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center">
           <img src={iconDragAndDrop} alt="drag and drop" />
           <p className="ml-2 font-medium text-grey">Link #{(ranking + 1).toString()}</p>
@@ -66,7 +66,7 @@ const FormLink = ({
           Remove
         </p>
       </div>
-      <p className="text-p-small text-dark-grey mb-1 font-medium">Platform</p>
+      <p className="mb-1 text-p-small font-medium text-dark-grey">Platform</p>
       <Select
         className="mb-3"
         placeholder="Select option"
@@ -77,9 +77,20 @@ const FormLink = ({
         onChange={handleChangePlatform}
         formatOptionLabel={formatOptionLabel}
       />
-      <div className='flex justify-between'>
-        <label htmlFor={platform} className={`text-p-small text-dark-grey mb-1 font-medium ${!validURL ? 'text-red' : ''}`}>Link</label>
-        {!validURL ? <p className='text-p-small text-red'>Please enter a <span className='capitalize'>{platform.toLowerCase()}</span> correct URL</p> : ''}
+      <div className="flex justify-between">
+        <label
+          htmlFor={platform}
+          className={`mb-1 text-p-small font-medium text-dark-grey ${!validURL ? 'text-red' : ''}`}
+        >
+          Link
+        </label>
+        {!validURL ? (
+          <p className="text-p-small text-red">
+            Please enter a <span className="capitalize">{platform.toLowerCase()}</span> correct URL
+          </p>
+        ) : (
+          ''
+        )}
       </div>
       <div className="flex flex-col">
         <input
@@ -87,7 +98,7 @@ const FormLink = ({
           value={linkValue}
           onChange={handleChangeInput}
           onBlur={handleTouchedInput}
-          className={`p-2 py-3 border rounded-lg ${!validURL ? 'border-red' : ''}`}
+          className={`rounded-lg border p-2 py-3 ${!validURL ? 'border-red' : ''}`}
           placeholder={`e.g. https://www.${placeholderLink.toLowerCase()}.com/johnappleseed`}
         />
       </div>

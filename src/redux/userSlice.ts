@@ -4,11 +4,10 @@ import { demoUser } from '@datas/dataDemo';
 import axios from 'axios';
 import { CurrentUserState } from 'src/types/types';
 
-
-const initialState : CurrentUserState = {
-  currentUser  : undefined,
+const initialState: CurrentUserState = {
+  currentUser: undefined,
   isLoading: false,
-  isDemo : false
+  isDemo: false,
 };
 
 export const registerUser = createAsyncThunk('auth/register', async (userData: SignUpFormType, thunkAPI) => {
@@ -53,7 +52,7 @@ export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, 
 export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (userData: FormData, thunkAPI) => {
   try {
     const token = localStorage.getItem('token') ?? '';
-    
+
     const response = await axios.put('https://link-sharing.joska-gyuricza.fr/api/users', userData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -75,14 +74,13 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getDemoUser: (state : CurrentUserState) => {
-      state.isDemo = true
-      state.currentUser = demoUser
+    getDemoUser: (state: CurrentUserState) => {
+      state.isDemo = true;
+      state.currentUser = demoUser;
     },
-    modifyLinks: (state : CurrentUserState, action) => {
-      console.log(action.payload)
-      state.currentUser = {...state.currentUser, links : action.payload}
-    }
+    modifyLinks: (state: CurrentUserState, action) => {
+      state.currentUser = { ...state.currentUser, links: action.payload };
+    },
   },
   extraReducers: (builder) => {
     builder

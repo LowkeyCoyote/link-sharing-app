@@ -1,4 +1,4 @@
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
 import FormField from '@components/shared/ui/FormField';
 import { getCurrentUser, updateCurrentUser } from '@redux/userSlice';
 import { AppDispatch } from '@redux/store';
@@ -16,7 +16,9 @@ const FormUpdateProfile = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
   const dispatch = useDispatch<AppDispatch>();
-  const { selectedImage, imagePreview, fileInputRef, handleDivClick, handleImageChange } = useImageUpload(userInfo?.url);
+  const { selectedImage, imagePreview, fileInputRef, handleDivClick, handleImageChange } = useImageUpload(
+    userInfo?.url
+  );
 
   const {
     register,
@@ -84,16 +86,14 @@ const FormUpdateProfile = () => {
         <p className="pb-10">Add your details to create a personal touch to your profile.</p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="p-5 rounded-xl bg-light-grey mb-6">
+          <div className="mb-6 rounded-xl bg-light-grey p-5">
             <div className="flex items-center justify-between sm:flex-col sm:items-start">
-              <label className="text-grey font-medium sm:pb-4" htmlFor="image">
+              <label className="font-medium text-grey sm:pb-4" htmlFor="image">
                 Profile Picture
               </label>
               <div
                 onClick={handleDivClick}
-                className={`h-[193px] w-[193px] bg-light-purple overflow-hidden rounded-xl cursor-pointer flex flex-col items-center justify-center bg-no-repeat bg-center bg-cover relative
-                md:ml-10 sm:ml-0 sm:mb-6
-                `}
+                className={`relative flex h-[193px] w-[193px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl bg-light-purple bg-cover bg-center bg-no-repeat md:ml-10 sm:mb-6 sm:ml-0`}
                 style={{
                   backgroundImage: imagePreview ? `url(${imagePreview})` : 'none',
                 }}
@@ -112,7 +112,7 @@ const FormUpdateProfile = () => {
                   required={false}
                 />
                 <img className={`${imagePreview ? `filter-white z-10` : ``}`} src={iconUploadImage} alt="upload" />
-                <p className={`text-purple font-semibold ${imagePreview ? `text-white z-10` : ``}`}>+ Upload Image</p>
+                <p className={`font-semibold text-purple ${imagePreview ? `z-10 text-white` : ``}`}>+ Upload Image</p>
                 {imagePreview && <div className="overlay-dark-profile"></div>}
               </div>
               <p className="max-w-[200px] text-p-small sm:max-w-full">
@@ -121,8 +121,8 @@ const FormUpdateProfile = () => {
             </div>
           </div>
 
-          <div className="p-5 mb-28 rounded-xl bg-light-grey sm:mb-6 ">
-            <div className="flex justify-between items-center sm:flex-col sm:items-start sm:w-full">
+          <div className="mb-28 rounded-xl bg-light-grey p-5 sm:mb-6">
+            <div className="flex items-center justify-between sm:w-full sm:flex-col sm:items-start">
               <label
                 htmlFor="firstname"
                 className={`text-grey sm:mb-0.5 sm:text-[12px] ${errors.firstname ? 'text-red' : ''}`}
@@ -144,7 +144,7 @@ const FormUpdateProfile = () => {
               />
             </div>
 
-            <div className="flex justify-between items-center sm:flex-col sm:items-start ">
+            <div className="flex items-center justify-between sm:flex-col sm:items-start">
               <label
                 htmlFor="lastname"
                 className={`text-grey sm:mb-0.5 sm:text-[12px] ${errors.lastname ? 'text-red' : ''}`}
@@ -166,8 +166,8 @@ const FormUpdateProfile = () => {
               />
             </div>
 
-            <div className="flex justify-between items-center sm:flex-col sm:items-start">
-              <label className={`text-grey mb-0.5 sm:text-[12px] ${errors.email ? 'text-red' : ''}`} htmlFor="email">
+            <div className="flex items-center justify-between sm:flex-col sm:items-start">
+              <label className={`mb-0.5 text-grey sm:text-[12px] ${errors.email ? 'text-red' : ''}`} htmlFor="email">
                 Email
               </label>
               <FormField

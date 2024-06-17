@@ -18,8 +18,6 @@ export type UpdateFormType = {
   email?: string;
 };
 
-
-
 export type LinkInfoProfile = {
   email: string;
   firstname?: string;
@@ -29,24 +27,23 @@ export type LinkInfoProfile = {
 export type LinkUser = {
   platform: string;
   url: string;
-  id : number;
+  id: number;
 };
 
-export type UserData =  {
-  lastname ?: string;
+export type UserData = {
+  lastname?: string;
   firstname?: string;
   email?: string;
-  image ?: string | Blob
+  image?: string | Blob;
   links?: LinkUser[];
-  ranking ?: number;
+  ranking?: number;
   id?: string;
-}
+};
 
-// Redux User type 
+// Redux User type
 
 export type CurrentUserState = {
-  currentUser ?: UserData;
-  isDemo : boolean;
-  isLoading : boolean;
-}
-
+  currentUser?: UserData;
+  isDemo: boolean;
+  isLoading: boolean;
+};

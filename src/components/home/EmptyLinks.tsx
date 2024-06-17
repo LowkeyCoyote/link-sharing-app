@@ -6,7 +6,7 @@ const EmptyLinks = () => {
   const isDemo = useSelector((state: any) => state.authSlice.isDemo);
   return (
     <section>
-      <div className="flex flex-col items-center bg-light-grey rounded-lg pt-16 pb-16 mb-10">
+      <div className="mb-10 flex flex-col items-center rounded-lg bg-light-grey pb-16 pt-16">
         <img src={illustrationEmptyLinks} className="mb-10" alt="no links" />
         <h1 className="mb-6"> Let’s get you started</h1>
         <p className="w-9/12 text-center sm:w-full">

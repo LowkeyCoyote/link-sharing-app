@@ -23,7 +23,7 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
   let isMobile = useIsMobile();
 
   return (
-    <div className="flex items-center justify-between m-6 p-4 bg-white sm:m-4 sm:pr-4 sm:pl-6 sm:mb-6 sm:mx-0 sm:mt-0">
+    <div className="m-6 flex items-center justify-between bg-white p-4 sm:m-4 sm:mx-0 sm:mb-6 sm:mt-0 sm:pl-6 sm:pr-4">
       <img src={isMobile ? logoDevLinksSmall : logoDevlinksLarge} alt="devlinks" className="sm:h-[32px] sm:w-[32px]" />
 
       <nav>
@@ -31,13 +31,13 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
           <li>
             <button onClick={handleChangeTabSelected} value="home">
               <div
-                className={`group div-filter py-3 px-7 flex items-center gap-2 rounded-lg hover:bg-light-purple duration-100 ease-in-out ${
+                className={`div-filter group flex items-center gap-2 rounded-lg px-7 py-3 duration-100 ease-in-out hover:bg-light-purple ${
                   selectedLink === 'home' ? 'bg-light-purple' : ''
                 }`}
               >
                 <img
                   src={iconLink}
-                  className={`filter-purple w-[20px] h-[20px] ${
+                  className={`filter-purple h-[20px] w-[20px] ${
                     selectedLink === 'home' ? 'filter-purple-selected' : ''
                   }`}
                   alt="link"
@@ -55,13 +55,13 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
           <li>
             <button onClick={handleChangeTabSelected} value="profile">
               <div
-                className={`group div-filter py-3 px-7 flex items-center gap-2 rounded-lg hover:bg-light-purple duration-100 ease-in-out ${
+                className={`div-filter group flex items-center gap-2 rounded-lg px-7 py-3 duration-100 ease-in-out hover:bg-light-purple ${
                   selectedLink === 'profile' ? 'bg-light-purple' : ''
                 }`}
               >
                 <img
                   src={iconProfile}
-                  className={`filter-purple w-[20px] h-[20px] ${
+                  className={`filter-purple h-[20px] w-[20px] ${
                     selectedLink === 'profile' ? 'filter-purple-selected' : ''
                   }`}
                   alt="profile"
@@ -69,7 +69,7 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
                 <p
                   className={`semibold group-hover:text-purple ${selectedLink === 'profile' ? 'text-purple' : ''} ${
                     isMobile ? 'hidden' : ''
-                  }  `}
+                  } `}
                 >
                   Profile
                 </p>
@@ -82,9 +82,9 @@ const Navbar = ({ handleChangeTab }: NavbarProps) => {
       <div>
         <Button variant="secondary" className="px-4 py-3 md:px-0 sm:px-4" link="/preview">
           {isMobile ? (
-            <img className="min-w-[20px] min-h-[20px]" src={iconPreview} alt="preview" />
+            <img className="min-h-[20px] min-w-[20px]" src={iconPreview} alt="preview" />
           ) : (
-            <p className="px-7 md:px-2 sm:px-7 text-purple font-medium">Preview</p>
+            <p className="px-7 font-medium text-purple md:px-2 sm:px-7">Preview</p>
           )}
         </Button>
       </div>

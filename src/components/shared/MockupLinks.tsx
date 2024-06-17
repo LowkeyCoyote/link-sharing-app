@@ -15,15 +15,15 @@ const MockupLinks = () => {
   }
 
   return (
-    <div className="relative h-[631px] w-[307px] bg-illustration-mockup-links bg-no-repeat flex flex-col items-center my-[101px]">
+    <div className="relative my-[101px] flex h-[631px] w-[307px] flex-col items-center bg-illustration-mockup-links bg-no-repeat">
       <div
-        className="w-24 h-24 rounded-full bg-center bg-no-repeat bg-cover mt-16"
+        className="mt-16 h-24 w-24 rounded-full bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${isDemo ? placeholderImg : userInfo.url})` }}
       ></div>
-      <p className="text-[18px] text-dark-grey mt-5 bg-white w-[240px] text-center">
+      <p className="mt-5 w-[240px] bg-white text-center text-[18px] text-dark-grey">
         {userInfo.firstname} {userInfo.lastname}
       </p>
-      <p className="text-[14px] w-[240px] mx-auto text-center bg-white">{userInfo.email}</p>
+      <p className="mx-auto w-[240px] bg-white text-center text-[14px]">{userInfo.email}</p>
       <div className="absolute top-[277.5px]">
         <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
           <SortableContext items={links}>

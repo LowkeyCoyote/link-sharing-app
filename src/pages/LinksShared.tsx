@@ -15,8 +15,8 @@ const LinkShared = () => {
   }
 
   return (
-    <section className="relative bg-[#fafafa] sm:bg-white grid place-content-center min-h-screen">
-      <div className="absolute h-[357px] bg-purple w-full top-0 rounded-b-[32px] -z-10 sm:hidden"> </div>
+    <section className="relative grid min-h-screen place-content-center bg-[#fafafa] sm:bg-white">
+      <div className="-b-[32px] absolute top-0 -z-10 h-[357px] w-full rounded bg-purple sm:hidden"> </div>
       <CardPreview userInfo={dataLinkShared} />
     </section>
   );

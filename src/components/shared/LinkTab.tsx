@@ -27,7 +27,7 @@ const LinkTab = ({ platform, id, link }: LinkTabProps) => {
 
   return (
     <div
-      className={`flex items-center justify-between h-[44px] p-4 w-[237px] rounded-lg mb-5  ${tab?.textGrey ? `text-dark-grey` : 'text-white'}`}
+      className={`mb-5 flex h-[44px] w-[237px] items-center justify-between rounded-lg p-4 ${tab?.textGrey ? `text-dark-grey` : 'text-white'}`}
       style={style}
       ref={setNodeRef}
       {...attributes}
@@ -37,7 +37,7 @@ const LinkTab = ({ platform, id, link }: LinkTabProps) => {
       <div className="flex flex-row">
         <img
           src={iconMapping[platform.toLowerCase()]}
-          className={`${tab?.textGrey ? `` : 'icon-to-white '} mr-2 w-[20px] h-[20px]`}
+          className={`${tab?.textGrey ? `` : 'icon-to-white'} mr-2 h-[20px] w-[20px]`}
           alt=""
         />
         <p className={`${tab?.textGrey ? `` : 'text-white'}`}>{platform}</p>

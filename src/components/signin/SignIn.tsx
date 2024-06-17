@@ -12,16 +12,15 @@ import { toast } from 'react-toastify';
 import { getDemoUser } from '@redux/userSlice';
 
 const SignIn = () => {
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const setDemoInfo = () => {
-    localStorage.setItem('token', 'token-demo')
-    localStorage.setItem('demo', 'true')
-    dispatch(getDemoUser())
-    navigate('/home')
-  }
+    localStorage.setItem('token', 'token-demo');
+    localStorage.setItem('demo', 'true');
+    dispatch(getDemoUser());
+    navigate('/home');
+  };
 
   const {
     register,
@@ -32,19 +31,20 @@ const SignIn = () => {
     reValidateMode: 'onChange',
   });
 
-  const onSubmit = (data : SignInFormType) => {
-    const {email, password} = data
-      dispatch(loginUser({email, password})).then((action) => {
-        localStorage.setItem("token", action.payload.token);
-        navigate('/home')
+  const onSubmit = (data: SignInFormType) => {
+    const { email, password } = data;
+    dispatch(loginUser({ email, password }))
+      .then((action) => {
+        localStorage.setItem('token', action.payload.token);
+        navigate('/home');
       })
-      .catch(() => toast.error('Invalid Credentials'))
+      .catch(() => toast.error('Invalid Credentials'));
   };
 
   return (
-    <div className='w-[476px] sm:w-[311px] sm:mx-auto'>
+    <div className="w-[476px] sm:mx-auto sm:w-[311px]">
       <img src={logoDevlinksLarge} alt="devlinks" className="pb-12" />
-      <div className="bg-white rounded-xl text-left p-10 sm:p-0">
+      <div className="rounded-xl bg-white p-10 text-left sm:p-0">
         <h1 className="pb-2">Login</h1>
         <p className="pb-10">Add your details below to get back into the app</p>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -80,17 +80,12 @@ const SignIn = () => {
           </Button>
           <p className="pt-6 text-center">
             Don’t have an account?{' '}
-            <Link className="text-purple cursor-pointer" to={'/signup'}>
+            <Link className="cursor-pointer text-purple" to={'/signup'}>
               {' '}
               Create account
             </Link>
-
-            <Button 
-            className='px-4 mt-6' 
-            variant={'secondary'}
-            onClick={setDemoInfo}
-            >
-              Try our demo version ! 
+            <Button className="mt-6 px-4" variant={'secondary'} onClick={setDemoInfo}>
+              Try our demo version !
             </Button>
           </p>
         </form>

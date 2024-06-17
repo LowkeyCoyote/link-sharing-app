@@ -44,9 +44,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="w-[476px] sm:w-[311px] sm:mx-auto">
+    <div className="w-[476px] sm:mx-auto sm:w-[311px]">
       <img src={logoDevlinksLarge} alt="devlinks" className="pb-12" />
-      <div className="bg-white rounded-xl text-left p-10 sm:p-0">
+      <div className="rounded-xl bg-white p-10 text-left sm:p-0">
         <h1 className="pb-2">Create account</h1>
         <p className="pb-10">Let’s get you started sharing your links!</p>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -93,7 +93,7 @@ const SignUp = () => {
         </form>
         <p className="pt-6 text-center">
           Already have an account?{' '}
-          <Link className="text-purple cursor-pointer" to={'/signin'}>
+          <Link className="cursor-pointer text-purple" to={'/signin'}>
             Login
           </Link>
         </p>

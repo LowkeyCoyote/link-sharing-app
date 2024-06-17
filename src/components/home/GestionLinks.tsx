@@ -17,7 +17,6 @@ const GestionLinks = () => {
 
   const onSubmit = () => {
     const invalidLinks = links.filter((link) => !isValidUrl(link.url, link.platform));
-    console.log(invalidLinks);
     if (invalidLinks.length > 0) {
       toast.error('Please correct the invalid URLs before submitting.');
       return;
@@ -36,7 +35,7 @@ const GestionLinks = () => {
         Add/edit/remove links below and then share all your profiles with the world! <br />
         You can drag and drop links to change their order
       </p>
-      <Button variant={'secondary'} className="w-full mb-6" onClick={addNewLink}>
+      <Button variant={'secondary'} className="mb-6 w-full" onClick={addNewLink}>
         + Add new link
       </Button>
       {links.length === 0 ? (

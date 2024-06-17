@@ -48,20 +48,17 @@ const router = createBrowserRouter([
       },
     ],
   },
-
 ]);
-
-
 
 export default function Router() {
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {    
-    if(localStorage.getItem('demo') === null){
+  useEffect(() => {
+    if (localStorage.getItem('demo') === null) {
       dispatch(getCurrentUser());
     }
-    if(localStorage.getItem('demo')){
-      dispatch(getDemoUser())
+    if (localStorage.getItem('demo')) {
+      dispatch(getDemoUser());
     }
   }, [dispatch]);
 
