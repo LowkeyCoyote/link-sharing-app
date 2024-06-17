@@ -99,7 +99,7 @@ const FormLink = ({
           onChange={handleChangeInput}
           onBlur={handleTouchedInput}
           className={`rounded-lg border p-2 py-3 ${!validURL ? 'border-red' : ''}`}
-          placeholder={`e.g. https://www.${placeholderLink.toLowerCase()}.com/johnappleseed`}
+          placeholder={`e.g. https://www.${platform === "Twitter" ?  'x'  :placeholderLink.toLowerCase()}.com/johnappleseed`}
         />
       </div>
     </div>

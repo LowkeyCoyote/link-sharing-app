@@ -185,7 +185,9 @@ const FormUpdateProfile = () => {
                 profilePage={true}
               />
             </div>
+            <p className='text-p-small'>Changing your email will modify your credentials</p>
           </div>
+ 
           <FooterHome isDemo={isDemo} onSubmit={undefined} disableSubmit={isDemo} />
         </form>
       </div>

@@ -104,6 +104,7 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.currentUser = action.payload.user;
+        state.isDemo = false;
       })
       .addCase(loginUser.rejected, (state) => {
         state.isLoading = false;
