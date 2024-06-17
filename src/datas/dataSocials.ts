@@ -15,7 +15,6 @@ import iconTwitter from '@assets/shared/socials/icon-twitter.svg';
 import iconYoutube from '@assets/shared/socials/icon-youtube.svg';
 import iconFaceBook from "@assets/shared/socials/icon-facebook.svg"
 
-
 type socialInfosType = {
     platform : string;
     color : string;

@@ -6,18 +6,16 @@ import { CSS } from '@dnd-kit/utilities';
 interface LinkTabProps {
   platform: string;
   id: number;
-  link ?: string;
+  link?: string;
 }
 
 const LinkTab = ({ platform, id, link }: LinkTabProps) => {
-
   const navigateToUrl = () => {
-    console.log('hello')
-    if(link){
-      window.open(link) 
+    if (link) {
+      window.open(link);
     }
-  }
-  
+  };
+
   const tab = socialInfosArray.find((e) => e.platform.toLowerCase() === platform.toLowerCase());
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
@@ -35,7 +33,6 @@ const LinkTab = ({ platform, id, link }: LinkTabProps) => {
       {...attributes}
       {...listeners}
       onClick={navigateToUrl}
-    
     >
       <div className="flex flex-row">
         <img

@@ -1,36 +1,13 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import CardPreview from '@components/preview/CardPreview';
-import axios from 'axios';
-import { LinkInfo } from 'src/types/types';
+import useFetchUser from '@hooks/useFetchUser';
 
 const LinkShared = () => {
   const { id } = useParams();
-  const [dataLinkShared, setDataLinkedShared] = useState<LinkInfo | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchDataUser = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios.get(`https://link-sharing.joska-gyuricza.fr/api/users/link`, {
-          params: {
-            position: id,
-          },
-        });
-        const json = await response.data.user;
-        setIsLoading(false);
-        setDataLinkedShared(json);
-      } catch (error) {
-        setError(error);
-      }
-    };
-    fetchDataUser();
-  }, []);
+  const { dataLinkShared, isLoading, error } = useFetchUser(id);
 
   if (isLoading) {
-    return <p>Loadind ...</p>;
+    return <p>Loading ...</p>;
   }
 
   if (error) {

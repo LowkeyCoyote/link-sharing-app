@@ -57,7 +57,6 @@ const FormUpdateProfile = () => {
     if (isDemo) {
       return;
     }
-
     try {
       const formData = new FormData();
       formData.append('firstname', data.firstname);

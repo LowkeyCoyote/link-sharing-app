@@ -2,9 +2,7 @@ import CardPreview from '@components/preview/CardPreview';
 import NavbarPreview from '@components/preview/NavbarPreview';
 import { useSelector } from 'react-redux';
 
-
 const PreviewPage = () => {
-
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   return (
     <section className="relative !sm:bg-white pt-6">

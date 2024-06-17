@@ -1,38 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch } from '@redux/store';
-import placeholderImg from "@assets/shared/placeholder-img.png"
+import { useSelector } from 'react-redux';
+import placeholderImg from '@assets/shared/placeholder-img.png';
 import LinkTab from '@components/shared/LinkTab';
-import { useEffect, useState } from 'react';
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
-import { SortableContext, arrayMove } from '@dnd-kit/sortable';
+import { DndContext } from '@dnd-kit/core';
+import { SortableContext } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import { LinkUser } from 'src/types/types';
-import { modifyLinks } from '@redux/userSlice';
-
+import useLinkManagement from '@hooks/useLinkManagement';
 
 const MockupLinks = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
-  const isDemo = useSelector((state: any) => state.authSlice.isDemo);
-  const dispatch = useDispatch<AppDispatch>();
-  const [links, setLinks] = useState<LinkUser[]>([]);
-
-  useEffect(() => {
-    if (userInfo && userInfo.links) {
-      setLinks(userInfo.links);
-    }    
-  }, [userInfo]);
-
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (over && active.id !== over.id) {
-      const oldIndex = links.findIndex((link) => link.id === active.id);
-      const newIndex = links.findIndex((link) => link.id === over.id);
-      const newLinks = arrayMove(links, oldIndex, newIndex);
-      setLinks(newLinks);
-      dispatch(modifyLinks(newLinks.map((link) => ({ ...link, id : link.id }))));
-    }
-  };
+  const { links, isDemo, handleDragEnd } = useLinkManagement();
 
   if (!userInfo) {
     return <p>Loading ...</p>;
