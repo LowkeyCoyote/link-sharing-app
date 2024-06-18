@@ -4,7 +4,8 @@ import useIsTablet from '@hooks/useIsTablet';
 const useCustomSensors = () => {
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
-      distance: 10,
+      distance: 20
+
     },
   });
 

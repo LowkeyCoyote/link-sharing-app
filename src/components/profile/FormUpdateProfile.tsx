@@ -87,7 +87,7 @@ const FormUpdateProfile = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-6 rounded-xl bg-light-grey p-5">
-            <div className="flex items-center justify-between sm:flex-col sm:items-start">
+            <div className="flex items-center justify-between sm:flex-col sm:items-center">
               <label className="font-medium text-grey sm:pb-4" htmlFor="image">
                 Profile Picture
               </label>
@@ -115,7 +115,7 @@ const FormUpdateProfile = () => {
                 <p className={`font-semibold text-purple ${imagePreview ? `z-10 text-white` : ``}`}>+ Upload Image</p>
                 {imagePreview && <div className="overlay-dark-profile"></div>}
               </div>
-              <p className="max-w-[200px] text-p-small sm:max-w-full">
+              <p className="max-w-[200px] text-p-small sm:text-center sm:max-w-full">
                 Image must be below 1024x1024px. Use PNG or JPG format.
               </p>
             </div>
@@ -185,9 +185,9 @@ const FormUpdateProfile = () => {
                 profilePage={true}
               />
             </div>
-            <p className='text-p-small'>Changing your email will modify your credentials</p>
+            <p className="text-p-small">Changing your email will modify your credentials</p>
           </div>
- 
+
           <FooterHome isDemo={isDemo} onSubmit={undefined} disableSubmit={isDemo} />
         </form>
       </div>

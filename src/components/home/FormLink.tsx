@@ -1,5 +1,6 @@
 import iconDragAndDrop from '@assets/shared/icon/icon-drag-and-drop.svg';
 import { useSortable } from '@dnd-kit/sortable';
+import { useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import Select from 'react-select';
 import { SelectSocialValues, OptionsType } from '@datas/dataSocials';
@@ -26,16 +27,19 @@ const FormLink = ({
   id,
   platform,
 }: FormLinkProps) => {
-  const { linkValue, selectedPlatform, validURL, handleChangePlatform, handleChangeInput, handleTouchedInput } =
-    useLinkForm({
-      initialUrl: url,
-      initialPlatform: platform,
-      updateLink,
-      updatePlatform,
-    });
+  const { linkValue, selectedPlatform, validURL, handleChangePlatform, handleChangeInput } = useLinkForm({
+    initialUrl: url,
+    initialPlatform: platform,
+    updateLink,
+    updatePlatform,
+  });
 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+  const [isDraggingDisabled, setIsDraggingDisabled] = useState(false);
 
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    id,
+    disabled: isDraggingDisabled,
+  });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -96,10 +100,11 @@ const FormLink = ({
         <input
           type="text"
           value={linkValue}
+          onBlur={() => setIsDraggingDisabled(false)}
+          onFocus={() => setIsDraggingDisabled(true)}
           onChange={handleChangeInput}
-          onBlur={handleTouchedInput}
-          className={`rounded-lg border p-2 py-3 ${!validURL ? 'border-red' : ''}`}
-          placeholder={`e.g. https://www.${platform === "Twitter" ?  'x'  :placeholderLink.toLowerCase()}.com/johnappleseed`}
+          className={`select-none rounded-lg border p-2 py-3 ${!validURL ? 'border-red' : ''}`}
+          placeholder={`e.g. https://www.${platform === 'Twitter' ? 'x' : placeholderLink.toLowerCase()}.com/johnappleseed`}
         />
       </div>
     </div>

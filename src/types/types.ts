@@ -1,5 +1,3 @@
-// Form Type
-
 export type SignInFormType = {
   email: string;
   password: string;

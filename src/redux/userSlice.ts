@@ -10,9 +10,11 @@ const initialState: CurrentUserState = {
   isDemo: false,
 };
 
+const apiURL = "https://link-sharing.joska-gyuricza.fr/api/users"
+
 export const registerUser = createAsyncThunk('auth/register', async (userData: SignUpFormType, thunkAPI) => {
   try {
-    const response = await axios.post('https://link-sharing.joska-gyuricza.fr/api/users/signup', {
+    const response = await axios.post(`${apiURL}/signup`, {
       email: userData.email,
       password: userData.password,
     });
@@ -24,7 +26,7 @@ export const registerUser = createAsyncThunk('auth/register', async (userData: S
 
 export const loginUser = createAsyncThunk('auth/login', async (userData: SignInFormType, thunkAPI) => {
   try {
-    const response = await axios.post('https://link-sharing.joska-gyuricza.fr/api/users/signin', {
+    const response = await axios.post(`${apiURL}/signin`, {
       email: userData.email,
       password: userData.password,
     });
@@ -38,7 +40,7 @@ export const getCurrentUser = createAsyncThunk('auth/getCurrentUser', async (_, 
   try {
     const token = localStorage.getItem('token') ?? '';
 
-    const response = await axios.get(`https://link-sharing.joska-gyuricza.fr/api/users`, {
+    const response = await axios.get(`${apiURL}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -53,7 +55,7 @@ export const updateCurrentUser = createAsyncThunk('auth/updateUser', async (user
   try {
     const token = localStorage.getItem('token') ?? '';
 
-    const response = await axios.put('https://link-sharing.joska-gyuricza.fr/api/users', userData, {
+    const response = await axios.put(`${apiURL}`, userData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
@@ -97,7 +99,6 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state) => {
         state.isLoading = false;
       })
-
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
       })
@@ -109,7 +110,6 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state) => {
         state.isLoading = false;
       })
-
       .addCase(getCurrentUser.pending, (state) => {
         state.isLoading = true;
       })
@@ -132,7 +132,6 @@ const authSlice = createSlice({
       .addCase(updateCurrentUser.rejected, (state) => {
         state.isLoading = false;
       })
-
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.currentUser = undefined;

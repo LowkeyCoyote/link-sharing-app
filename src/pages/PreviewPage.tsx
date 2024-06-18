@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const PreviewPage = () => {
   const userInfo = useSelector((state: any) => state.authSlice.currentUser);
   return (
-    <section className="relative bg-[#fafafa] pt-6 sm:bg-white">
+    <section className="relative bg-[#fafafa] pt-6 sm:bg-white min-h-screen">
       <div className="absolute top-0 -z-10 h-[357px] w-full rounded-b-[32px] bg-purple sm:hidden"> </div>
       <NavbarPreview />
       <CardPreview userInfo={userInfo} />

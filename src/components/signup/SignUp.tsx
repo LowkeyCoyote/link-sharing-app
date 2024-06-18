@@ -34,9 +34,9 @@ const SignUp = () => {
     try {
       const action = await dispatch(registerUser({ email, password }));
       unwrapResult(action);
-      toast.success('Your account has been created. Click here to sign in', {
+      navigate('/signin');
+      toast.success('Your account has been created. You can sign in.', {
         onClick: () => navigate('/signin'),
-        style: { cursor: 'pointer' },
       });
     } catch (error) {
       toast.error('An error occurred during account creation');

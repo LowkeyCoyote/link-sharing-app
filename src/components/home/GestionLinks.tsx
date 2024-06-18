@@ -33,7 +33,7 @@ const GestionLinks = () => {
       <h1 className="mb-2">Customize your links</h1>
       <p className="mb-10">
         Add/edit/remove links below and then share all your profiles with the world! <br />
-        You can drag and drop links to change their order
+        You can drag and drop links to change their order.
       </p>
       <Button variant={'secondary'} className="mb-6 w-full" onClick={addNewLink}>
         + Add new link
