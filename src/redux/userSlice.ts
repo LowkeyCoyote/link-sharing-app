@@ -99,6 +99,7 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state) => {
         state.isLoading = false;
       })
+
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
       })
@@ -110,6 +111,7 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state) => {
         state.isLoading = false;
       })
+
       .addCase(getCurrentUser.pending, (state) => {
         state.isLoading = true;
       })
@@ -132,6 +134,7 @@ const authSlice = createSlice({
       .addCase(updateCurrentUser.rejected, (state) => {
         state.isLoading = false;
       })
+      
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.currentUser = undefined;
