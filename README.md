@@ -2,7 +2,7 @@
 
 ## Context
 
-Challenge carried out with the mentor frontend site.   
+Challenge carried out with the frontendmentor website.   
 The objective was to integrate as precisely as possible the Figma model of the application that I had available.   
 
 This application is fullstack, the backend is created with express and hosted on an EC2 instance of AWS.  
